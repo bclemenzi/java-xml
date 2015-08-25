@@ -3,7 +3,7 @@ Java-XML is Java library designed to help simplify the building and parsing of X
 
 Features
 --------
-  * Support for create new XML document objects
+  * Support for creating new XML document objects
   * Support for importing existing XML documents from your file system
   * Support for importing existing XML documents from a String
   * Support for adding child elements and their attributes

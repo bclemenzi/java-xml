@@ -1,6 +1,20 @@
 # java-xml
 Java-XML is Java library designed to help simplify the building and parsing of XML documents
 
+Getting started
+---------------
+### Including the JAR in your project
+
+The easiest way to incorporate the JAR into your Java project is to use Maven. Simply add a new dependency to your `pom.xml`:
+
+```xml
+<dependency>
+  <groupId>com.nfbsoftware</groupId>
+  <artifactId>java-xml</artifactId>
+  <version>1.0.5</version>
+</dependency>
+```
+
 Usage
 -----
 The easiest way to get started is to just use the XmlDocument class, like this:

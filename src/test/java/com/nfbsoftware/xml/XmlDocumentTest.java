@@ -107,6 +107,7 @@ public class XmlDocumentTest extends TestCase
         {
             StringBuffer xmlString = new StringBuffer();
             xmlString.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+            xmlString.append("<!-- COMMENT -->");
             xmlString.append("<ROOT>");
             xmlString.append("  <one>test1</one>");
             xmlString.append("  <two>");

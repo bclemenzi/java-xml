@@ -9,8 +9,9 @@ import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.nfbsoftware.util.Severity;
-import com.nfbsoftware.util.StringUtil;
 
 /**
  * The single runtime exception class. All checked exceptions encountered within the NFB Software Core must be propogated
@@ -362,7 +363,7 @@ public abstract class NfbRuntimeException extends RuntimeException
                 return stackTraceString;
             }
 
-            return StringUtil.EMPTY_STRING;
+            return StringUtils.EMPTY;
         }
 
         return s;

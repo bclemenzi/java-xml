@@ -19,6 +19,7 @@ import java.util.Vector;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.xerces.dom.DocumentImpl;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
@@ -36,7 +37,6 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-import com.nfbsoftware.util.StringUtil;
 import com.nfbsoftware.xml.exception.XmlDocumentCheckedException;
 
 /**
@@ -302,7 +302,7 @@ public class XmlDocument implements IXmlDocument
             Node e = mDocument.createElement(child);
             mRootNode.appendChild(e);
 
-            if (!StringUtil.isNullOrEmpty(value))
+            if(!StringUtils.isEmpty(value))
             {
                 Node text = mDocument.createTextNode(value);
                 e.appendChild(text);
@@ -580,7 +580,7 @@ public class XmlDocument implements IXmlDocument
 
         if (attr == null)
         {
-            return StringUtil.EMPTY_STRING;
+            return StringUtils.EMPTY;
         }
         else
         {
@@ -749,7 +749,7 @@ public class XmlDocument implements IXmlDocument
                 Node attrNode = childNode.getAttributes().getNamedItem(attr);
                 if (attr == null)
                 {
-                    return StringUtil.EMPTY_STRING;
+                    return StringUtils.EMPTY;
                 }
                 else
                 {
@@ -989,7 +989,7 @@ public class XmlDocument implements IXmlDocument
 
             if (childNode == null)
             {
-                return StringUtil.EMPTY_STRING;
+                return StringUtils.EMPTY;
             }
             else
             {
@@ -1027,7 +1027,7 @@ public class XmlDocument implements IXmlDocument
                 }
             }
         }
-        return StringUtil.EMPTY_STRING;
+        return StringUtils.EMPTY;
     }
 
     /**
@@ -1045,7 +1045,7 @@ public class XmlDocument implements IXmlDocument
 
            if (childNode == null)
            {
-               return StringUtil.EMPTY_STRING;
+               return StringUtils.EMPTY;
            }
            else
            {
@@ -1083,7 +1083,7 @@ public class XmlDocument implements IXmlDocument
                }
            }
        }
-       return StringUtil.EMPTY_STRING;
+       return StringUtils.EMPTY;
    }
 
     /**
@@ -1875,7 +1875,7 @@ public class XmlDocument implements IXmlDocument
         Node childNode = null;
 
         // Descend through path of tags until first matching child found
-        String[] tagList = StringUtil.split(sChildName, SEPARATOR);
+        String[] tagList = StringUtils.split(sChildName, SEPARATOR);
         synchronized (mDocument)
         {
             childNode = getChildNodeByTag(rootNode, tagList, 0);

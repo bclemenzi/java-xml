@@ -1,5 +1,8 @@
 package com.nfbsoftware.xml;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import junit.framework.Assert;
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -159,6 +162,82 @@ public class XmlDocumentTest extends TestCase
             String thirdValue = nodeThree.getValue();
             
             Assert.assertTrue("testReadDocumentUsingXPath returned an error.", thirdValue.equalsIgnoreCase("test3"));
+        }
+        catch (Exception e)
+        {
+            Assert.fail("testReadDocumentUsingXPath Failure");
+        }
+    }
+    
+    /**
+     * 
+     */
+    public void testReadDocumentUsingXPathWithAttribute()
+    {
+        try
+        {
+            StringBuffer xmlString = new StringBuffer();
+            xmlString.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+            xmlString.append("<ROOT>");
+            xmlString.append("  <one>");
+            xmlString.append("      <two>");
+            xmlString.append("          <element id=\"1\">Element-100</element>");
+            xmlString.append("          <element id=\"2\">Element-200</element>");
+            xmlString.append("          <element id=\"3\">Element-300</element>");
+            xmlString.append("      </two>");
+            xmlString.append("  </one>");
+            xmlString.append("</ROOT>");
+            
+            IXmlDocument doc = new XmlDocument(xmlString.toString());
+            IXmlElement root = doc.getRootElement();
+            
+            // Make an XPath call to get a handle on children with a matching xpath
+            List<IXmlElement> elements = root.selectChildren("//element");
+            
+            List<String> elementValues = new ArrayList<String>();
+            for(IXmlElement tmpElement : elements)
+            {
+                String tmpValue = tmpElement.getValue();
+                
+                elementValues.add(tmpValue);
+            }
+            
+            Assert.assertTrue("testReadDocumentUsingXPath returned an error.", elementValues.contains("Element-200"));
+        }
+        catch (Exception e)
+        {
+            Assert.fail("testReadDocumentUsingXPath Failure");
+        }
+    }
+    
+    /**
+     * 
+     */
+    public void testReadDocumentUsingXPathForAttribute()
+    {
+        try
+        {
+            StringBuffer xmlString = new StringBuffer();
+            xmlString.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+            xmlString.append("<ROOT>");
+            xmlString.append("  <one>");
+            xmlString.append("      <two>");
+            xmlString.append("          <element id=\"1\">Element-100</element>");
+            xmlString.append("          <element id=\"2\">Element-200</element>");
+            xmlString.append("          <element id=\"3\">Element-300</element>");
+            xmlString.append("      </two>");
+            xmlString.append("  </one>");
+            xmlString.append("</ROOT>");
+            
+            IXmlDocument doc = new XmlDocument(xmlString.toString());
+            IXmlElement root = doc.getRootElement();
+            
+            // Make an XPath call to get a handle to the child using an xpath query.  An exception will be thrown if multiple matches are found.
+            IXmlElement tmpElement = root.selectChild("//element[@id='2']");
+            
+            String tmpValue = tmpElement.getValue();
+            
+            Assert.assertTrue("testReadDocumentUsingXPath returned an error.", tmpValue.equalsIgnoreCase("Element-200"));
         }
         catch (Exception e)
         {

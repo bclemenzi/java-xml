@@ -4,7 +4,7 @@
 
   	<groupId>com.nfbsoftware</groupId>
   	<artifactId>java-xml</artifactId>
-  	<version>1.0.8</version>
+  	<version>1.0.9</version>
   	<packaging>jar</packaging>
 
   	<name>NFB Software Java-XML</name>
@@ -160,6 +160,11 @@
     		<groupId>xerces</groupId>
     		<artifactId>xercesImpl</artifactId>
     		<version>2.11.0</version>
+		</dependency>
+		<dependency>
+    		<groupId>xalan</groupId>
+    		<artifactId>xalan</artifactId>
+    		<version>2.7.2</version>
 		</dependency>
   	</dependencies>
   	

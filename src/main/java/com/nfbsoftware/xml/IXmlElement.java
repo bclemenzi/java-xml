@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -133,6 +134,22 @@ public interface IXmlElement extends Serializable
      * XmlDocumentCheckedException.Codes.GENERAL_ERROR</code>
      */
     IXmlElement getChild(String childName) throws XmlDocumentCheckedException;
+    
+    /**
+     * 
+     * @param xpathQuery
+     * @return
+     * @throws XmlDocumentCheckedException
+     */
+    List<IXmlElement> selectChildren(String xpathQuery) throws XmlDocumentCheckedException;
+    
+    /**
+     * 
+     * @param xpathQuery
+     * @return
+     * @throws XmlDocumentCheckedException
+     */
+    IXmlElement selectChild(String xpathQuery) throws XmlDocumentCheckedException;
 
     /**
      * This method returns the attribute value of a child node.

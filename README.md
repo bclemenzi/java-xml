@@ -20,7 +20,7 @@ The easiest way to incorporate the JAR into your Java project is to use Maven. S
 <dependency>
   <groupId>com.nfbsoftware</groupId>
   <artifactId>java-xml</artifactId>
-  <version>1.0.8</version>
+  <version>1.0.9</version>
 </dependency>
 ```
 
@@ -89,7 +89,61 @@ IXmlElement root = doc.getRootElement();
 IXmlElement nodeThree = root.getChild("one/two/three");
             
 System.out.println("thirdValue: " + nodeThree.getValue());
-```				
+```		
+
+Select/search for elements using xPath
+
+```java						
+StringBuffer xmlString = new StringBuffer();
+xmlString.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+xmlString.append("<ROOT>");
+xmlString.append("  <one>");
+xmlString.append("      <two>");
+xmlString.append("          <element id=\"1\">Element-100</element>");
+xmlString.append("          <element id=\"2\">Element-200</element>");
+xmlString.append("          <element id=\"3\">Element-300</element>");
+xmlString.append("      </two>");
+xmlString.append("  </one>");
+xmlString.append("</ROOT>");
+            
+IXmlDocument doc = new XmlDocument(xmlString.toString());
+IXmlElement root = doc.getRootElement();
+            
+// Make an XPath call to get a handle on children with a matching xpath
+List<IXmlElement> elements = root.selectChildren("//element");
+            
+List<String> elementValues = new ArrayList<String>();
+for(IXmlElement tmpElement : elements)
+{
+	String tmpValue = tmpElement.getValue();
+                
+    System.out.println("tmpValue: " + tmpValue);
+}
+```			
+
+Select/search for a single element using xPath.  Exception is throw if multiple are found.
+
+```java						
+StringBuffer xmlString = new StringBuffer();
+xmlString.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+xmlString.append("<ROOT>");
+xmlString.append("  <one>");
+xmlString.append("      <two>");
+xmlString.append("          <element id=\"1\">Element-100</element>");
+xmlString.append("          <element id=\"2\">Element-200</element>");
+xmlString.append("          <element id=\"3\">Element-300</element>");
+xmlString.append("      </two>");
+xmlString.append("  </one>");
+xmlString.append("</ROOT>");
+            
+IXmlDocument doc = new XmlDocument(xmlString.toString());
+IXmlElement root = doc.getRootElement();
+            
+// Make an XPath call to get a handle to the child using an xpath query.  An exception will be thrown if multiple matches are found.
+IXmlElement tmpElement = root.selectChild("//element[@id='2']");
+                       
+System.out.println("tmpValue: " + tmpElement.getValue());
+```	
 					
 Get a CDATA Section
 

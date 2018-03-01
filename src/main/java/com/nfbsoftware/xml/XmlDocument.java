@@ -13,6 +13,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
@@ -23,6 +24,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.xerces.dom.DocumentImpl;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
+import org.apache.xpath.CachedXPathAPI;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -68,6 +70,11 @@ public class XmlDocument implements IXmlDocument
      *
      */
     private transient DocumentBuilder mDocumentBuilder;
+    
+    /**
+    *
+    */
+    private transient CachedXPathAPI mXPathAPI;
 
     /**
      *<B>sSeparator</B> contains the separator symbol used in child path.
@@ -686,6 +693,48 @@ public class XmlDocument implements IXmlDocument
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
         }
     }
+    
+    public List<IXmlElement> selectChildren(String xpathQuery) throws XmlDocumentCheckedException
+    {
+        List<IXmlElement> children = new ArrayList<IXmlElement>();
+        
+        NodeList nodes = selectNodesViaXPath(xpathQuery, mRootNode);
+        
+        if ((nodes == null) || (nodes.getLength() == 0))
+        {
+            return children;
+        }
+
+        int length = nodes.getLength();
+
+        for (int i = 0; i < length; i++)
+        {
+            Node childNode = nodes.item(i);
+            
+            children.add(create(childNode, mDocument));
+        }
+        
+        return children;
+    }
+    
+    public IXmlElement selectChild(String xpathQuery) throws XmlDocumentCheckedException
+    {
+        List<IXmlElement> children = selectChildren(xpathQuery);
+        
+        if(children.size() > 1)
+        {
+            throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, "Multiple records when 1 is expected.");
+        }
+        
+        if(children.isEmpty())
+        {
+            return null;
+        }
+        else
+        {
+            return children.get(0);
+        }
+    }
 
     /**
      *
@@ -1003,6 +1052,25 @@ public class XmlDocument implements IXmlDocument
         catch(Exception e)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
+        }
+    }
+    
+    protected NodeList selectNodesViaXPath(String childName, Node root) throws XmlDocumentCheckedException
+    {
+        if(root == null)
+        {
+            throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.NULL_ROOT_ELEMENT, "No ROOT element found");
+        }
+        
+        mXPathAPI = new CachedXPathAPI();
+        
+        try
+        {
+            return mXPathAPI.selectNodeList(root, childName);
+        }
+        catch (Exception e)
+        {
+            throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, "Error executing xPath query", e);
         }
     }
 
@@ -1905,7 +1973,9 @@ public class XmlDocument implements IXmlDocument
         String tagName = tagList[index];
         while (node != null)
         {
-            if (node.getNodeName().equals(tagName))
+            String nodeName = node.getNodeName();
+            
+            if (nodeName.equals(tagName))
             {
                 Node child = getChildNodeByTag(node, tagList, index + 1);
                 if (child != null)

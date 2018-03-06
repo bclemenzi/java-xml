@@ -275,6 +275,28 @@ public interface IXmlElement extends Serializable
      * @exception XmlDocumentCheckedException
      */
     IXmlElement removeChild(String childName) throws XmlDocumentCheckedException;
+    
+    /**
+     * This method removes a single child element with the given xpath query.
+     *
+     * @param xPath query to identify element
+     *
+     * @return the removed child
+     *
+     * @exception XmlDocumentCheckedException
+     */
+    IXmlElement removeChildWithXpath(String xpathQuery) throws XmlDocumentCheckedException;
+    
+    /**
+     * This method removes all child elements with the given xpath query.
+     *
+     * @param xPath query to identify elements
+     *
+     * @return the removed child
+     *
+     * @exception XmlDocumentCheckedException
+     */
+    List<IXmlElement> removeChildrenWithXpath(String xpathQuery) throws XmlDocumentCheckedException;
 
     /**
      * This method removes an attribute from a child element

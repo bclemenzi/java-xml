@@ -103,6 +103,111 @@ public class XmlDocumentTest extends TestCase
     
     /**
      * 
+     * @throws Exception
+     */
+    public void testDeleteElement() throws Exception
+    {
+        System.out.println("====> Starting XmlDocumentTest.testDeleteElement");
+        
+        IXmlDocument doc = new XmlDocument();
+        IXmlElement testElement = doc.createChild("Test", "");
+        
+        testElement.createChild("TestOne", "something");
+        testElement.createChild("TestTwo", "something else");
+        testElement.createChild("TestThree", "yet another something");
+
+        IXmlElement elementToDelete = testElement.getChild("TestOne");
+        System.out.println("elementToDelete: " + elementToDelete.getValue());
+        
+        // Delete element
+        testElement.removeChild("TestOne");
+        
+        IXmlElement deletedElement = testElement.getChild("TestOne");
+        
+        Assert.assertTrue(deletedElement == null);
+
+        System.out.println("====> Finished XmlDocumentTest.testDeleteElement");
+    }
+    
+    /**
+     * 
+     * @throws Exception
+     */
+    public void testDeleteElementWithXPath() throws Exception
+    {
+        System.out.println("====> Starting XmlDocumentTest.testDeleteElementWithXPath");
+        
+        StringBuffer xmlString = new StringBuffer();
+        xmlString.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+        xmlString.append("<ROOT>");
+        xmlString.append("  <one>");
+        xmlString.append("      <two>");
+        xmlString.append("          <element id=\"1\">Element-100</element>");
+        xmlString.append("          <element id=\"2\">Element-200</element>");
+        xmlString.append("          <element id=\"3\">Element-300</element>");
+        xmlString.append("      </two>");
+        xmlString.append("  </one>");
+        xmlString.append("</ROOT>");
+        
+        IXmlDocument doc = new XmlDocument(xmlString.toString());
+        IXmlElement root = doc.getRootElement();
+
+        IXmlElement elementToDelete = root.selectChild("//element[@id='2']");
+        System.out.println("elementToDelete: " + elementToDelete.getValue());
+        
+        // Delete element
+        root.removeChildWithXpath("//element[@id='2']");
+        
+        IXmlElement deletedElement = root.selectChild("//element[@id='2']");
+        
+        Assert.assertTrue(deletedElement == null);
+
+        System.out.println("====> Finished XmlDocumentTest.testDeleteElementWithXPath");
+    }
+    
+    /**
+     * 
+     * @throws Exception
+     */
+    public void testDeleteElementsWithXPath() throws Exception
+    {
+        System.out.println("====> Starting XmlDocumentTest.testDeleteElementWithXPath");
+        
+        StringBuffer xmlString = new StringBuffer();
+        xmlString.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+        xmlString.append("<ROOT>");
+        xmlString.append("  <one>");
+        xmlString.append("      <two>");
+        xmlString.append("          <element id=\"1\">Element-100</element>");
+        xmlString.append("          <element id=\"2\">Element-200</element>");
+        xmlString.append("          <element id=\"3\">Element-300</element>");
+        xmlString.append("      </two>");
+        xmlString.append("      <three>");
+        xmlString.append("          <element id=\"1\">Element-101</element>");
+        xmlString.append("          <element id=\"2\">Element-201</element>");
+        xmlString.append("          <element id=\"3\">Element-301</element>");
+        xmlString.append("      </three>");
+        xmlString.append("  </one>");
+        xmlString.append("</ROOT>");
+        
+        IXmlDocument doc = new XmlDocument(xmlString.toString());
+        IXmlElement root = doc.getRootElement();
+
+        List<IXmlElement> elementsToDelete = root.selectChildren("//element[@id='2']");
+        System.out.println("elementsToDelete: " + elementsToDelete.size());
+        
+        // Delete element
+        root.removeChildrenWithXpath("//element[@id='2']");
+        
+        List<IXmlElement> deletedElements = root.selectChildren("//element[@id='2']");
+        
+        Assert.assertTrue(deletedElements.size() == 0);
+
+        System.out.println("====> Finished XmlDocumentTest.testDeleteElementWithXPath");
+    }
+    
+    /**
+     * 
      */
     public void testCreateDocumentFromString()
     {

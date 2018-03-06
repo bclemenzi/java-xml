@@ -43,7 +43,7 @@ import com.nfbsoftware.xml.exception.XmlDocumentCheckedException;
 
 /**
  * 
- * @author Brendan Clemenzi 
+ * @author Brendan Clemenzi
  * @email brendan@clemenzi.com
  */
 @SuppressWarnings("restriction")
@@ -52,17 +52,17 @@ public class XmlDocument implements IXmlDocument
     /**
 	 *
 	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-     *<B>mDocument</B> stores the Document Node of the XML document.
-     *In W3C's DOM model, each XML document must have a Document node
-     *and a root Element node.
+    /**
+     * <B>mDocument</B> stores the Document Node of the XML document. In W3C's
+     * DOM model, each XML document must have a Document node and a root Element
+     * node.
      */
     protected org.w3c.dom.Document mDocument;
 
     /**
-     *<B>mRootNode</B> stores the root Element node of the XML document.
+     * <B>mRootNode</B> stores the root Element node of the XML document.
      */
     protected org.w3c.dom.Node mRootNode;
 
@@ -70,33 +70,33 @@ public class XmlDocument implements IXmlDocument
      *
      */
     private transient DocumentBuilder mDocumentBuilder;
-    
+
     /**
     *
     */
     private transient CachedXPathAPI mXPathAPI;
 
     /**
-     *<B>sSeparator</B> contains the separator symbol used in child path.
+     * <B>sSeparator</B> contains the separator symbol used in child path.
      */
     protected final static String SEPARATOR = "/";
 
     private static class ErrorHandler extends DefaultHandler
     {
         @Override
-		public void warning(final SAXParseException e) throws SAXException
+        public void warning(final SAXParseException e) throws SAXException
         {
-            //Do nothing.
+            // Do nothing.
         }
 
         @Override
-		public void error(final SAXParseException e) throws SAXException
+        public void error(final SAXParseException e) throws SAXException
         {
             throw new SAXException(e);
         }
 
         @Override
-		public void fatalError(final SAXParseException e) throws SAXException
+        public void fatalError(final SAXParseException e) throws SAXException
         {
             throw new SAXException(e);
         }
@@ -231,7 +231,8 @@ public class XmlDocument implements IXmlDocument
 
     public XmlDocument(IXmlDocument xmlDocument) throws XmlDocumentCheckedException
     {
-        //final String debugString = getClass().getName() + ".XmlDocument(IXmlDocument)";
+        // final String debugString = getClass().getName() +
+        // ".XmlDocument(IXmlDocument)";
 
         mRootNode = xmlDocument.getRootNode();
         mDocument = xmlDocument.getDocument();
@@ -285,7 +286,7 @@ public class XmlDocument implements IXmlDocument
      */
     private IXmlElement create(org.w3c.dom.Node node) throws XmlDocumentCheckedException
     {
-		Document doc = new DocumentImpl();
+        Document doc = new DocumentImpl();
         Node rootNode = doc;
 
         Node child = cloneChildren(doc, node);
@@ -309,20 +310,18 @@ public class XmlDocument implements IXmlDocument
             Node e = mDocument.createElement(child);
             mRootNode.appendChild(e);
 
-            if(!StringUtils.isEmpty(value))
+            if (!StringUtils.isEmpty(value))
             {
                 Node text = mDocument.createTextNode(value);
                 e.appendChild(text);
             }
             return create(e, mDocument);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
         }
     }
-
-
 
     /**
      *
@@ -406,7 +405,7 @@ public class XmlDocument implements IXmlDocument
 
             Node childRoot = child.getRootNode();
 
-            parentNode.appendChild(examineChild(child.getDocument(),childRoot));
+            parentNode.appendChild(examineChild(child.getDocument(), childRoot));
         }
         catch (XmlDocumentCheckedException e)
         {
@@ -491,9 +490,11 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *This method creates a standing alone XmlData object with sName and sValue.
-     *Note: NameSpace is not supported for all the implementations.
-     *@param child Child name in XPath format, like REQUEST/HEADER/INFO
+     * This method creates a standing alone XmlData object with sName and
+     * sValue. Note: NameSpace is not supported for all the implementations.
+     *
+     * @param child
+     *            Child name in XPath format, like REQUEST/HEADER/INFO
      */
     public XmlDocument createChildByName(String child) throws XmlDocumentCheckedException
     {
@@ -503,19 +504,20 @@ public class XmlDocument implements IXmlDocument
             Node childNode = prgCreateChildByName(child);
             return create(childNode, mDocument);
         }
-        catch(XmlDocumentCheckedException e)
+        catch (XmlDocumentCheckedException e)
         {
             throw e;
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
         }
     }
 
     /**
-     *This method returns the root node of the internal XML document.
-     *@return root node
+     * This method returns the root node of the internal XML document.
+     *
+     * @return root node
      */
     public Node getRootNode() throws XmlDocumentCheckedException
     {
@@ -523,27 +525,31 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *This method returns the document node of the internal XML document.
-     *@return document node
+     * This method returns the document node of the internal XML document.
+     *
+     * @return document node
      */
     public Document getDocument() throws XmlDocumentCheckedException
     {
         return mDocument;
     }
+
     /**
-     *This method returns the root node of the internal XML document.
-     *@return root node
+     * This method returns the root node of the internal XML document.
+     *
+     * @return root node
      */
-    public  Node getPrivateElementNode()
+    public Node getPrivateElementNode()
     {
         return mRootNode;
     }
 
     /**
-     *This method returns the document node of the internal XML document.
-     *@return document node
+     * This method returns the document node of the internal XML document.
+     *
+     * @return document node
      */
-    public  Document getPrivateDocument()
+    public Document getPrivateDocument()
     {
         return mDocument;
     }
@@ -688,18 +694,18 @@ public class XmlDocument implements IXmlDocument
                 return create(child);
             }
         }
-        catch(XmlDocumentCheckedException e)
+        catch (XmlDocumentCheckedException e)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
         }
     }
-    
+
     public List<IXmlElement> selectChildren(String xpathQuery) throws XmlDocumentCheckedException
     {
         List<IXmlElement> children = new ArrayList<IXmlElement>();
-        
+
         NodeList nodes = selectNodesViaXPath(xpathQuery, mRootNode);
-        
+
         if ((nodes == null) || (nodes.getLength() == 0))
         {
             return children;
@@ -710,23 +716,23 @@ public class XmlDocument implements IXmlDocument
         for (int i = 0; i < length; i++)
         {
             Node childNode = nodes.item(i);
-            
+
             children.add(create(childNode, mDocument));
         }
-        
+
         return children;
     }
-    
+
     public IXmlElement selectChild(String xpathQuery) throws XmlDocumentCheckedException
     {
         List<IXmlElement> children = selectChildren(xpathQuery);
-        
-        if(children.size() > 1)
+
+        if (children.size() > 1)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, "Multiple records when 1 is expected.");
         }
-        
-        if(children.isEmpty())
+
+        if (children.isEmpty())
         {
             return null;
         }
@@ -764,7 +770,7 @@ public class XmlDocument implements IXmlDocument
                 return null;
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, ex, debugString, ex);
         }
@@ -780,7 +786,8 @@ public class XmlDocument implements IXmlDocument
      * @return
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#getChildAttribute(java.lang.String, java.lang.String)
+     * @see xml.IXmlDocument#getChildAttribute(java.lang.String,
+     *      java.lang.String)
      */
     public String getChildAttribute(String child, String attr) throws XmlDocumentCheckedException
     {
@@ -806,11 +813,11 @@ public class XmlDocument implements IXmlDocument
                 }
             }
         }
-        catch(XmlDocumentCheckedException xdce)
+        catch (XmlDocumentCheckedException xdce)
         {
             throw xdce;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, ex, debugString, ex);
         }
@@ -828,11 +835,11 @@ public class XmlDocument implements IXmlDocument
         {
             return getElementChildNodesLength(mRootNode.getChildNodes());
         }
-        catch(XmlDocumentCheckedException xdce)
+        catch (XmlDocumentCheckedException xdce)
         {
             throw xdce;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, ex, debugString, ex);
         }
@@ -861,7 +868,7 @@ public class XmlDocument implements IXmlDocument
             }
             return size;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, ex, debugString, ex);
         }
@@ -919,11 +926,11 @@ public class XmlDocument implements IXmlDocument
 
             return results;
         }
-        catch(XmlDocumentCheckedException xdce)
+        catch (XmlDocumentCheckedException xdce)
         {
             throw xdce;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, ex, debugString, ex);
         }
@@ -951,7 +958,7 @@ public class XmlDocument implements IXmlDocument
             {
                 Node child = getElementChildByIndex(mRootNode, i);
 
-                if(child.getNodeName().equals(name))
+                if (child.getNodeName().equals(name))
                 {
                     results.add(create(child));
                 }
@@ -959,11 +966,11 @@ public class XmlDocument implements IXmlDocument
 
             return results;
         }
-        catch(XmlDocumentCheckedException e)
+        catch (XmlDocumentCheckedException e)
         {
             throw e;
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
         }
@@ -997,31 +1004,31 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-    *
-    *
-    * @param childName
-    * @return
-    * @throws XmlDocumentCheckedException
-    *
-    * @see xml.IXmlDocument#getChildValue(java.lang.String)
-    */
-   public String getCDATASection(String childName) throws XmlDocumentCheckedException
-   {
-       final String debugString = getClass().getName() + ".getCDATASection(String)";
+     *
+     *
+     * @param childName
+     * @return
+     * @throws XmlDocumentCheckedException
+     *
+     * @see xml.IXmlDocument#getChildValue(java.lang.String)
+     */
+    public String getCDATASection(String childName) throws XmlDocumentCheckedException
+    {
+        final String debugString = getClass().getName() + ".getCDATASection(String)";
 
-       String results;
+        String results;
 
-       try
-       {
-           results = getCDATAValue(childName);
-       }
-       catch (XmlDocumentCheckedException ex)
-       {
-           throw new XmlDocumentCheckedException(debugString, ex);
-       }
+        try
+        {
+            results = getCDATAValue(childName);
+        }
+        catch (XmlDocumentCheckedException ex)
+        {
+            throw new XmlDocumentCheckedException(debugString, ex);
+        }
 
-       return results;
-   }
+        return results;
+    }
 
     /**
      *
@@ -1045,25 +1052,25 @@ public class XmlDocument implements IXmlDocument
                 return getNodeTextValue(childNode);
             }
         }
-        catch(XmlDocumentCheckedException e)
+        catch (XmlDocumentCheckedException e)
         {
             throw e;
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
         }
     }
-    
+
     protected NodeList selectNodesViaXPath(String childName, Node root) throws XmlDocumentCheckedException
     {
-        if(root == null)
+        if (root == null)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.NULL_ROOT_ELEMENT, "No ROOT element found");
         }
-        
+
         mXPathAPI = new CachedXPathAPI();
-        
+
         try
         {
             return mXPathAPI.selectNodeList(root, childName);
@@ -1087,7 +1094,7 @@ public class XmlDocument implements IXmlDocument
         {
             int cnt = children.getLength();
 
-            for ( int i = 0 ; i < cnt; i ++)
+            for (int i = 0; i < cnt; i++)
             {
                 if (children.item(i).getNodeType() == Node.TEXT_NODE)
                 {
@@ -1099,60 +1106,60 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-    *
-    * @param sChild
-    * @return
-    * @throws XmlDocumentCheckedException
-    */
-   public final String getCDATAValue(String sChild) throws XmlDocumentCheckedException
-   {
-       final String debugString = getClass().getName() + ".getCDATAValue(String)";
-       try
-       {
-           Node childNode = prvGetChildByName(sChild);
+     *
+     * @param sChild
+     * @return
+     * @throws XmlDocumentCheckedException
+     */
+    public final String getCDATAValue(String sChild) throws XmlDocumentCheckedException
+    {
+        final String debugString = getClass().getName() + ".getCDATAValue(String)";
+        try
+        {
+            Node childNode = prvGetChildByName(sChild);
 
-           if (childNode == null)
-           {
-               return StringUtils.EMPTY;
-           }
-           else
-           {
-               return getCDATATextValue(childNode);
-           }
-       }
-       catch(XmlDocumentCheckedException e)
-       {
-           throw e;
-       }
-       catch(Exception e)
-       {
-           throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
-       }
-   }
+            if (childNode == null)
+            {
+                return StringUtils.EMPTY;
+            }
+            else
+            {
+                return getCDATATextValue(childNode);
+            }
+        }
+        catch (XmlDocumentCheckedException e)
+        {
+            throw e;
+        }
+        catch (Exception e)
+        {
+            throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
+        }
+    }
 
     /**
-    *
-    * @param node
-    * @return
-    * @throws XmlDocumentCheckedException
-    */
-   protected final String getCDATATextValue(Node node) throws XmlDocumentCheckedException
-   {
-       NodeList children = node.getChildNodes();
-       if (children != null)
-       {
-           int cnt = children.getLength();
+     *
+     * @param node
+     * @return
+     * @throws XmlDocumentCheckedException
+     */
+    protected final String getCDATATextValue(Node node) throws XmlDocumentCheckedException
+    {
+        NodeList children = node.getChildNodes();
+        if (children != null)
+        {
+            int cnt = children.getLength();
 
-           for ( int i = 0 ; i < cnt; i ++)
-           {
-               if (children.item(i).getNodeType() == Node.CDATA_SECTION_NODE)
-               {
-                   return children.item(i).getNodeValue();
-               }
-           }
-       }
-       return StringUtils.EMPTY;
-   }
+            for (int i = 0; i < cnt; i++)
+            {
+                if (children.item(i).getNodeType() == Node.CDATA_SECTION_NODE)
+                {
+                    return children.item(i).getNodeValue();
+                }
+            }
+        }
+        return StringUtils.EMPTY;
+    }
 
     /**
      *
@@ -1195,11 +1202,11 @@ public class XmlDocument implements IXmlDocument
         {
             return getNodeTextValue(mRootNode);
         }
-        catch(XmlDocumentCheckedException e)
+        catch (XmlDocumentCheckedException e)
         {
             throw e;
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
         }
@@ -1352,7 +1359,7 @@ public class XmlDocument implements IXmlDocument
         {
             mRootNode.getAttributes().removeNamedItem(attrName);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
         }
@@ -1380,13 +1387,13 @@ public class XmlDocument implements IXmlDocument
             }
             child.getParentNode().removeChild(child);
 
-            return create( child, mDocument);
+            return create(child, mDocument);
         }
-        catch(XmlDocumentCheckedException e)
+        catch (XmlDocumentCheckedException e)
         {
             throw e;
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
         }
@@ -1416,7 +1423,82 @@ public class XmlDocument implements IXmlDocument
 
             return create(xmlNode, mDocument);
         }
-        catch(Exception ex)
+        catch (Exception ex)
+        {
+            throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, ex, debugString, ex);
+        }
+    }
+
+    /**
+     *
+     *
+     * @param xpathQuery
+     * @return List<IXmlElement>
+     * @throws XmlDocumentCheckedException
+     *
+     * @see xml.IXmlDocument#removeChild(java.lang.String)
+     */
+    public List<IXmlElement> removeChildrenWithXpath(String xpathQuery) throws XmlDocumentCheckedException
+    {
+        final String debugString = getClass().getName() + ".removeChildrenWithXpath(String)";
+
+        try
+        {
+            List<IXmlElement> removedChildren = new ArrayList<IXmlElement>();
+
+            NodeList nodes = selectNodesViaXPath(xpathQuery, mRootNode);
+
+            if ((nodes == null) || (nodes.getLength() == 0))
+            {
+                return null;
+            }
+
+            int length = nodes.getLength();
+
+            for (int i = 0; i < length; i++)
+            {
+                Node childNode = nodes.item(i);
+
+                childNode.getParentNode().removeChild(childNode);
+
+                removedChildren.add(create(childNode, mDocument));
+            }
+
+            return removedChildren;
+        }
+        catch (Exception ex)
+        {
+            throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, ex, debugString, ex);
+        }
+    }
+
+    /**
+     *
+     *
+     * @param xpathQuery
+     * @return List<IXmlElement>
+     * @throws XmlDocumentCheckedException
+     *
+     * @see xml.IXmlDocument#removeChild(java.lang.String)
+     */
+    public IXmlElement removeChildWithXpath(String xpathQuery) throws XmlDocumentCheckedException
+    {
+        final String debugString = getClass().getName() + ".removeChildWithXpath(String)";
+
+        try
+        {
+            List<IXmlElement> removedChildren = removeChildrenWithXpath(xpathQuery);
+
+            if (removedChildren.isEmpty())
+            {
+                return null;
+            }
+            else
+            {
+                return removedChildren.get(0);
+            }
+        }
+        catch (Exception ex)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, ex, debugString, ex);
         }
@@ -1430,7 +1512,8 @@ public class XmlDocument implements IXmlDocument
      * @return
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#removeChildAttribute(java.lang.String, java.lang.String)
+     * @see xml.IXmlDocument#removeChildAttribute(java.lang.String,
+     *      java.lang.String)
      */
     public void removeChildAttribute(String childName, String attrName) throws XmlDocumentCheckedException
     {
@@ -1446,7 +1529,7 @@ public class XmlDocument implements IXmlDocument
             xmlNode.getAttributes().removeNamedItem(attrName);
         }
 
-        catch(Exception e)
+        catch (Exception e)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
         }
@@ -1545,15 +1628,14 @@ public class XmlDocument implements IXmlDocument
                 throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.INVALID_INDEX, debugString);
             }
             Node newNode = (newChild).getRootNode();
-            mRootNode.replaceChild(examineChild(newChild.getDocument(),
-                                                newNode), child);
-            return create( child, mDocument);
+            mRootNode.replaceChild(examineChild(newChild.getDocument(), newNode), child);
+            return create(child, mDocument);
         }
-        catch(XmlDocumentCheckedException e)
+        catch (XmlDocumentCheckedException e)
         {
             throw e;
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
         }
@@ -1582,16 +1664,15 @@ public class XmlDocument implements IXmlDocument
             }
             Node newNode = newChild.getRootNode();
 
-            xmlNode.getParentNode().replaceChild(examineChild(newChild.getDocument(),
-                                                              newNode), xmlNode);
+            xmlNode.getParentNode().replaceChild(examineChild(newChild.getDocument(), newNode), xmlNode);
 
-            return create (xmlNode, mDocument);
+            return create(xmlNode, mDocument);
         }
-        catch(XmlDocumentCheckedException e)
+        catch (XmlDocumentCheckedException e)
         {
             throw e;
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
         }
@@ -1646,7 +1727,7 @@ public class XmlDocument implements IXmlDocument
         {
             int cnt = children.getLength();
 
-            for (int i = 0 ; i < cnt; i ++)
+            for (int i = 0; i < cnt; i++)
             {
                 if (children.item(i).getNodeType() == Node.TEXT_NODE)
                 {
@@ -1664,35 +1745,35 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-    *
-    * @param node
-    * @param sValue
-    * @throws Exception
-    */
+     *
+     * @param node
+     * @param sValue
+     * @throws Exception
+     */
     protected final void setCDATASection(Node node, String sValue) throws Exception
     {
-       String value = sValue;
+        String value = sValue;
 
-       if (value == null)
-       {
-           value = "";
-       }
+        if (value == null)
+        {
+            value = "";
+        }
 
-       if (value.length() > 0)
-       {
-           Text text = mDocument.createCDATASection(value);
-           node.appendChild(text);
-       }
+        if (value.length() > 0)
+        {
+            Text text = mDocument.createCDATASection(value);
+            node.appendChild(text);
+        }
     }
 
     /**
-    *
-    *
-    * @param value
-    * @throws Exception
-    *
-    * @see xml.IXmlDocument#setValue(java.lang.String)
-    */
+     *
+     *
+     * @param value
+     * @throws Exception
+     *
+     * @see xml.IXmlDocument#setValue(java.lang.String)
+     */
     public void setCDATASection(String value) throws Exception
     {
         setCDATASection(mRootNode, value);
@@ -1725,8 +1806,7 @@ public class XmlDocument implements IXmlDocument
 
         try
         {
-            java.io.FileOutputStream output =
-                new java.io.FileOutputStream(file);
+            java.io.FileOutputStream output = new java.io.FileOutputStream(file);
 
             writeToStream(output);
 
@@ -1743,16 +1823,16 @@ public class XmlDocument implements IXmlDocument
      * @param output
      * @throws XmlDocumentCheckedException
      */
-	private void writeToStream(OutputStream output) throws XmlDocumentCheckedException
+    private void writeToStream(OutputStream output) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".writeToStream(OutputStream)";
         try
         {
             OutputFormat format = new OutputFormat(mDocument);
             format.setIndenting(false);
-            //format.setPreserveEmptyAttributes(true);
+            // format.setPreserveEmptyAttributes(true);
             format.setPreserveSpace(true);
-            //Serialize DOM
+            // Serialize DOM
 
             XMLSerializer serial = new XMLSerializer(output, format);
             serial.asDOMSerializer();
@@ -1792,12 +1872,14 @@ public class XmlDocument implements IXmlDocument
 
     /**
      * Method getRootElement returns the root element for the xml document.
+     * 
      * @return IXmlElement root xml element
      * @throws XmlDocumentCheckedException
      */
     public IXmlElement getRootElement() throws XmlDocumentCheckedException
     {
-        //final String debugString = getClass().getName() + ".getRootElement()";
+        // final String debugString = getClass().getName() +
+        // ".getRootElement()";
 
         return new XmlDocument(create(mDocument.getDocumentElement(), mDocument));
     }
@@ -1810,8 +1892,8 @@ public class XmlDocument implements IXmlDocument
      *
      * @see java.lang.Object#toString()
      */
-	@Override
-	public String toString()
+    @Override
+    public String toString()
     {
         StringWriter stringwriter = new StringWriter();
         try
@@ -1823,7 +1905,7 @@ public class XmlDocument implements IXmlDocument
             xmlserializer.serialize(mDocument);
             stringwriter.close();
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             // Do nothing
         }
@@ -1853,10 +1935,12 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *This method replaces the content of the current root node
-     *with that of the InputStream.
-     *@param in A stream containing an XML document.
-     *@return boolean Indicates success or failure
+     * This method replaces the content of the current root node with that of
+     * the InputStream.
+     *
+     * @param in
+     *            A stream containing an XML document.
+     * @return boolean Indicates success or failure
      */
     public boolean replaceFromStream(InputStream in)
     {
@@ -1864,11 +1948,14 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *This method replaces the content of the current root node
-     *with that of the InputStream.
-     *@param in A stream containing an XML document.
-     *@param The name of the supported character encoding
-     *@return boolean Indicates success or failure
+     * This method replaces the content of the current root node with that of
+     * the InputStream.
+     *
+     * @param in
+     *            A stream containing an XML document.
+     * @param The
+     *            name of the supported character encoding
+     * @return boolean Indicates success or failure
      */
     public boolean replaceFromStream(InputStream in, String enc) throws java.io.UnsupportedEncodingException
     {
@@ -1878,9 +1965,10 @@ public class XmlDocument implements IXmlDocument
     /**
      * Description of the Method
      *
-     * @author        Brendan Clemezi
-     * @param reader  Description of Parameter
-     * @return        Description of the Returned Value
+     * @author Brendan Clemezi
+     * @param reader
+     *            Description of Parameter
+     * @return Description of the Returned Value
      */
     public boolean replaceFromReader(Reader reader)
     {
@@ -1892,7 +1980,7 @@ public class XmlDocument implements IXmlDocument
                 mDocument = mDocumentBuilder.newDocument();
                 mRootNode = mDocument;
             }
-            //mDOMParser.parse(new InputSource(reader));
+            // mDOMParser.parse(new InputSource(reader));
             mDocument = mDocumentBuilder.parse(new InputSource(reader));
             mRootNode = mDocument;
         }
@@ -1908,10 +1996,12 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *This method replaces the content of the current root node
-     *with that of the input string.
-     *@param xml A string contains an XML document.
-     *@return boolean Indicates success or failure
+     * This method replaces the content of the current root node with that of
+     * the input string.
+     *
+     * @param xml
+     *            A string contains an XML document.
+     * @return boolean Indicates success or failure
      */
     public final boolean replaceFromString(String xml)
     {
@@ -1921,9 +2011,10 @@ public class XmlDocument implements IXmlDocument
     /**
      * Description of the Method
      *
-     * @author            Brendan Clemezi
-     * @param sChildName  Description of Parameter
-     * @return            Description of the Returned Value
+     * @author Brendan Clemezi
+     * @param sChildName
+     *            Description of Parameter
+     * @return Description of the Returned Value
      */
     protected Node prvGetChildByName(String sChildName)
     {
@@ -1933,10 +2024,12 @@ public class XmlDocument implements IXmlDocument
     /**
      * Description of the Method
      *
-     * @author            Brendan Clemezi
-     * @param sChildName  Description of Parameter
-     * @param rootNode    Description of Parameter
-     * @return            Description of the Returned Value
+     * @author Brendan Clemezi
+     * @param sChildName
+     *            Description of Parameter
+     * @param rootNode
+     *            Description of Parameter
+     * @return Description of the Returned Value
      */
     protected Node prvGetChildByName(String sChildName, Node rootNode)
     {
@@ -1956,11 +2049,14 @@ public class XmlDocument implements IXmlDocument
      * NOTE: Before calling this method, you must first wrap it in
      * synchronized(MDocument)
      *
-     * @author          Brendan Clemezi
-     * @param rootNode  Description of Parameter
-     * @param tagList   Description of Parameter
-     * @param index     Description of Parameter
-     * @return          The ChildNodeByTag value
+     * @author Brendan Clemezi
+     * @param rootNode
+     *            Description of Parameter
+     * @param tagList
+     *            Description of Parameter
+     * @param index
+     *            Description of Parameter
+     * @return The ChildNodeByTag value
      */
     private Node getChildNodeByTag(Node rootNode, String[] tagList, int index)
     {
@@ -1974,7 +2070,7 @@ public class XmlDocument implements IXmlDocument
         while (node != null)
         {
             String nodeName = node.getNodeName();
-            
+
             if (nodeName.equals(tagName))
             {
                 Node child = getChildNodeByTag(node, tagList, index + 1);
@@ -1992,11 +2088,14 @@ public class XmlDocument implements IXmlDocument
     /**
      * Description of the Method
      *
-     * @author                 Brendan Clemezi
-     * @param rootDoc          Description of Parameter
-     * @param child            Description of Parameter
-     * @return                 Description of the Returned Value
-     * @exception XmlDocumentCheckedException  Description of Exception
+     * @author Brendan Clemezi
+     * @param rootDoc
+     *            Description of Parameter
+     * @param child
+     *            Description of Parameter
+     * @return Description of the Returned Value
+     * @exception XmlDocumentCheckedException
+     *                Description of Exception
      */
     protected Node examineChild(Document rootDoc, Node child) throws XmlDocumentCheckedException
     {
@@ -2013,11 +2112,14 @@ public class XmlDocument implements IXmlDocument
     /**
      * Clone a child node using the input document node
      *
-     * @author                 Brendan Clemenzi
-     * @param doc              Input document node
-     * @param child            Child node to clone
-     * @return                 Cloned child node
-     * @exception XmlDocumentCheckedException  When fails to clone
+     * @author Brendan Clemenzi
+     * @param doc
+     *            Input document node
+     * @param child
+     *            Child node to clone
+     * @return Cloned child node
+     * @exception XmlDocumentCheckedException
+     *                When fails to clone
      */
     public static Node cloneChildren(Document doc, Node child) throws XmlDocumentCheckedException
     {
@@ -2082,7 +2184,6 @@ public class XmlDocument implements IXmlDocument
         return node;
     }
 
-
     /**
      *
      * @param sChild
@@ -2101,7 +2202,7 @@ public class XmlDocument implements IXmlDocument
                 // Now traverse the path from top to bottom, creating descedent
                 // nodes along the way
 
-                StringTokenizer childTokens  = new StringTokenizer(sChild, SEPARATOR);
+                StringTokenizer childTokens = new StringTokenizer(sChild, SEPARATOR);
 
                 int size = childTokens.countTokens();
 
@@ -2120,7 +2221,7 @@ public class XmlDocument implements IXmlDocument
 
                         rootNode = newChild;
 
-                        while(childTokens.hasMoreTokens())
+                        while (childTokens.hasMoreTokens())
                         {
                             nextChildName = childTokens.nextToken();
 
@@ -2139,7 +2240,7 @@ public class XmlDocument implements IXmlDocument
 
             return childNode;
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
         }
@@ -2170,8 +2271,8 @@ public class XmlDocument implements IXmlDocument
         try
         {
             XMLReader r = XMLReaderFactory.createXMLReader(parserClass);
-            r.setFeature(validationFeature,true);
-            r.setFeature(schemaFeature,true);
+            r.setFeature(validationFeature, true);
+            r.setFeature(schemaFeature, true);
             r.setErrorHandler(new ErrorHandler());
 
             InputSource inputSource = new InputSource(new StringReader(this.toString()));
@@ -2206,11 +2307,11 @@ public class XmlDocument implements IXmlDocument
 
             return mRootNode.getAttributes().item(index).getNodeName();
         }
-        catch(XmlDocumentCheckedException xdce)
+        catch (XmlDocumentCheckedException xdce)
         {
             throw xdce;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, ex, debugString, ex);
         }
@@ -2249,15 +2350,13 @@ public class XmlDocument implements IXmlDocument
             }
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.INVALID_INDEX, debugString);
         }
-        catch(XmlDocumentCheckedException xdce)
+        catch (XmlDocumentCheckedException xdce)
         {
             throw xdce;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, ex, debugString, ex);
         }
     }
 }
-
-

@@ -20,7 +20,7 @@ The easiest way to incorporate the JAR into your Java project is to use Maven. S
 <dependency>
   <groupId>com.nfbsoftware</groupId>
   <artifactId>java-xml</artifactId>
-  <version>1.0.9</version>
+  <version>1.0.10</version>
 </dependency>
 ```
 
@@ -220,4 +220,73 @@ testElement.createChild("TestThree", "yet another something");
 String elementValue = testElement.getChildValue("TestOne");
         
 System.out.println("elementValue: " + elementValue);
+```
+
+Remove an XmlElement
+
+```java					
+IXmlDocument doc = new XmlDocument();
+IXmlElement testElement = doc.createChild("Test", "");
+        
+testElement.createChild("TestOne", "something");
+testElement.createChild("TestTwo", "something else");
+testElement.createChild("TestThree", "yet another something");
+        
+// Delete element
+testElement.removeChild("TestOne");
+        
+System.out.println(testElement.toString());
+```
+
+Remove an XmlElement using XPath
+
+```java					
+StringBuffer xmlString = new StringBuffer();
+xmlString.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+xmlString.append("<ROOT>");
+xmlString.append("  <one>");
+xmlString.append("      <two>");
+xmlString.append("          <element id=\"1\">Element-100</element>");
+xmlString.append("          <element id=\"2\">Element-200</element>");
+xmlString.append("          <element id=\"3\">Element-300</element>");
+xmlString.append("      </two>");
+xmlString.append("  </one>");
+xmlString.append("</ROOT>");
+        
+IXmlDocument doc = new XmlDocument(xmlString.toString());
+IXmlElement root = doc.getRootElement();
+        
+// Delete element
+root.removeChildWithXpath("//element[@id='2']");
+        
+System.out.println(root.toString());
+```
+
+Remove multiple XmlElements using XPath
+
+```java					
+StringBuffer xmlString = new StringBuffer();
+xmlString.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+xmlString.append("<ROOT>");
+xmlString.append("  <one>");
+xmlString.append("      <two>");
+xmlString.append("          <element id=\"1\">Element-100</element>");
+xmlString.append("          <element id=\"2\">Element-200</element>");
+xmlString.append("          <element id=\"3\">Element-300</element>");
+xmlString.append("      </two>");
+xmlString.append("      <three>");
+xmlString.append("          <element id=\"1\">Element-101</element>");
+xmlString.append("          <element id=\"2\">Element-201</element>");
+xmlString.append("          <element id=\"3\">Element-301</element>");
+xmlString.append("      </three>");
+xmlString.append("  </one>");
+xmlString.append("</ROOT>");
+        
+IXmlDocument doc = new XmlDocument(xmlString.toString());
+IXmlElement root = doc.getRootElement();
+        
+// Delete element
+root.removeChildrenWithXpath("//element[@id='2']");
+        
+System.out.println(root.toString());
 ```

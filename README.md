@@ -3,12 +3,14 @@ Java-XML is Java library designed to help simplify the building and parsing of X
 
 Features
 --------
+  * XML is maintained in memory to prevent the over creation of document objects.
   * Support for creating new XML document objects
   * Support for importing existing XML documents from your file system
   * Support for importing existing XML documents from a String
-  * Support for adding child elements and their attributes
+  * Support for adding/updating child elements and their attributes
   * Support for handling CDATA sections; including the creation and reading of those elements
-  * Support for getting a handle to an element via XPath
+  * Support for getting a handle to an element via index, name, or XPath query
+  * Support for removing elements via index, name, or XPath query
 
 Getting started
 ---------------

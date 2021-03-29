@@ -22,7 +22,7 @@ The easiest way to incorporate the JAR into your Java project is to use Maven. S
 <dependency>
   <groupId>com.nfbsoftware</groupId>
   <artifactId>java-xml</artifactId>
-  <version>1.0.10</version>
+  <version>1.0.11</version>
 </dependency>
 ```
 

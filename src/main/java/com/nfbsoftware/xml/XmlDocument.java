@@ -438,6 +438,11 @@ public class XmlDocument implements IXmlDocument
         }
     }
 
+    public IXmlElement createChild(String childName) throws XmlDocumentCheckedException 
+    {
+    	return this.createChild(childName, StringUtils.EMPTY);
+    }
+    
     /**
      *
      *
@@ -1687,7 +1692,7 @@ public class XmlDocument implements IXmlDocument
      *
      * @see xml.IXmlDocument#setAttribute(java.lang.String, java.lang.String)
      */
-    public void setAttribute(String attrName, String value) throws XmlDocumentCheckedException
+    public IXmlElement setAttribute(String attrName, String value) throws XmlDocumentCheckedException
     {
         Attr attr = (Attr) mRootNode.getAttributes().getNamedItem(attrName);
 
@@ -1705,6 +1710,7 @@ public class XmlDocument implements IXmlDocument
         {
             attr.setNodeValue(value);
         }
+        return this;
     }
 
     /**

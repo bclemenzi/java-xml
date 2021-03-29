@@ -48,6 +48,20 @@ public interface IXmlElement extends Serializable
      * @exception XmlDocumentCheckedException
      */
     IXmlDocument clone(boolean deep) throws XmlDocumentCheckedException;
+    
+    /**
+     * This method creates a new child under this element with an element name
+     * equal to the childName parameter.
+     * The returned element is referenced directly by this element's document
+     * after the operation.
+     *
+     * @param childName the child name
+     *
+     * @return XmlDocument Contains the newly created child node
+     *
+     * @exception XmlDocumentCheckedException
+     */
+    IXmlElement createChild(String childName) throws XmlDocumentCheckedException;
 
     /**
      * This method creates a new child under this element with an element name
@@ -356,7 +370,7 @@ public interface IXmlElement extends Serializable
      *
      * @exception XmlDocumentCheckedException
      */
-    void setAttribute(String attributeName, String value) throws XmlDocumentCheckedException;
+    IXmlElement setAttribute(String attributeName, String value) throws XmlDocumentCheckedException;
 
     /**
      * Sets this element's value

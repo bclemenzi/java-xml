@@ -11,7 +11,7 @@ package com.nfbsoftware.util;
  *  7 = (reserved success)
  *
  * @author Brendan Clemenzi 
- * @email brendan@clemenzi.com
+* 
  */
 public final class Severity
 {

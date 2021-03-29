@@ -18,7 +18,7 @@ import com.nfbsoftware.util.Severity;
  * propagated as a <code>CheckedException</code>.
  *
  * @author Brendan Clemenzi 
- * @email brendan@clemenzi.com
+* 
  */
 public abstract class NfbCheckedException extends Exception
 {
@@ -157,8 +157,6 @@ public abstract class NfbCheckedException extends Exception
          * Returns the Code's value as a String.
          *
          * @return the code's value
-         *
-         * @see java.lang.Object#toString()
          */
         @Override
 		public String toString()
@@ -169,7 +167,6 @@ public abstract class NfbCheckedException extends Exception
 
     /**
      *
-     * @see java.lang.Object#Object()
      */
     public NfbCheckedException()
     {

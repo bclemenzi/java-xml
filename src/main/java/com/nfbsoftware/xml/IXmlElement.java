@@ -14,7 +14,7 @@ import com.nfbsoftware.xml.exception.XmlDocumentCheckedException;
 /**
  * 
  * @author Brendan Clemenzi 
- * @email brendan@clemenzi.com
+* 
  */
 public interface IXmlElement extends Serializable
 {

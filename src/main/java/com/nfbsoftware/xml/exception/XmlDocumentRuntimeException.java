@@ -11,7 +11,7 @@ import com.nfbsoftware.exception.NfbRuntimeException;
  * defined in this class's <code>Codes</code> interface.
  *
  * @author Brendan Clemenzi 
- * @email brendan@clemenzi.com
+* 
  */
 public class XmlDocumentRuntimeException extends NfbRuntimeException
 {
@@ -90,7 +90,6 @@ public class XmlDocumentRuntimeException extends NfbRuntimeException
      * @param code              the exception code
      * @param debugInformation  debug information
      *
-     * @see XmlDocumentRuntimeException#XmlDocumentRuntimeException(XmlDocumentRuntimeException.Code, Object[], String)
      */
     public XmlDocumentRuntimeException(Code code, String debugInformation)
     {
@@ -109,7 +108,6 @@ public class XmlDocumentRuntimeException extends NfbRuntimeException
      * @param arg               an argument
      * @param debugInformation  debug information
      *
-     * @see XmlDocumentRuntimeException#XmlDocumentRuntimeException(XmlDocumentRuntimeException.Code, Object[], String)
      */
     public XmlDocumentRuntimeException(Code code, Object arg, String debugInformation)
     {
@@ -144,7 +142,6 @@ public class XmlDocumentRuntimeException extends NfbRuntimeException
      * @param debugInformation  debug information
      * @param rootCause         the root cause
      *
-     * @see XmlDocumentRuntimeException#XmlDocumentRuntimeException(XmlDocumentRuntimeException.Code, Object[], String, Throwable)
      */
     public XmlDocumentRuntimeException(Code code, Object arg, String debugInformation, Throwable rootCause)
     {
@@ -173,9 +170,8 @@ public class XmlDocumentRuntimeException extends NfbRuntimeException
      * the exception.
      *
      * @param debugInformation  debug information
-     * @param ex the exception to wrap
+     * @param rootCause ex the exception to wrap
      *
-     * @see NfbRuntimeException.exception.NfbRuntimeException#NfbRuntimeException(RuntimeException)
      */
     public XmlDocumentRuntimeException(String debugInformation, Throwable rootCause)
     {
@@ -214,9 +210,8 @@ public class XmlDocumentRuntimeException extends NfbRuntimeException
      * the exception.
      *
      * @param debugInformation  debug information
-     * @param ex the exception to wrap
+     * @param rootCause ex the exception to wrap
      *
-     * @see NfbRuntimeException.exception.NfbRuntimeException#NfbRuntimeException(RuntimeException)
      */
     public XmlDocumentRuntimeException(Object arg, String debugInformation, Throwable rootCause)
     {

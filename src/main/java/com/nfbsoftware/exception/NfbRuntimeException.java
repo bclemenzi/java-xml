@@ -18,7 +18,7 @@ import com.nfbsoftware.util.Severity;
  * as an runtimeException.
  *
  * @author Brendan Clemenzi 
- * @email brendan@clemenzi.com
+* 
  */
 public abstract class NfbRuntimeException extends RuntimeException
 {
@@ -140,7 +140,6 @@ public abstract class NfbRuntimeException extends RuntimeException
          *
          * @return the code's value
          *
-         * @see java.lang.Object#toString()
          */
         @Override
 		public String toString()
@@ -312,6 +311,8 @@ public abstract class NfbRuntimeException extends RuntimeException
      * and all server-side exceptions.
      *
      * <p>Note, the stack trace of the root cause is saved in the event that this exception wraps a root cause.
+     * 
+     * @return stacktrack
      */
     private String buildStackTrace()
     {

@@ -1,6 +1,5 @@
 package com.nfbsoftware.xml;
 
-import junit.framework.Assert;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -68,7 +67,7 @@ public class UpdatingXmlDocumentTest extends TestCase
         
         System.out.println(doc.toString());
         
-        Assert.assertTrue(true);
+        assertTrue(true);
 
         System.out.println("====> Finished UpdatingXmlDocumentTest.testUpdateElement");
     }
@@ -106,7 +105,7 @@ public class UpdatingXmlDocumentTest extends TestCase
         
         //System.out.println(doc.toString());
         
-        Assert.assertTrue(true);
+        assertTrue(true);
 
         System.out.println("====> Finished UpdatingXmlDocumentTest.testUpdateElement");
     }
@@ -144,7 +143,7 @@ public class UpdatingXmlDocumentTest extends TestCase
         
         //System.out.println(doc.toString());
         
-        Assert.assertTrue(true);
+        assertTrue(true);
 
         System.out.println("====> Finished UpdatingXmlDocumentTest.testUpdateElement");
     }

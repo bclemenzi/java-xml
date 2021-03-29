@@ -44,7 +44,7 @@ import com.nfbsoftware.xml.exception.XmlDocumentCheckedException;
 /**
  * 
  * @author Brendan Clemenzi
- * @email brendan@clemenzi.com
+* 
  */
 @SuppressWarnings("restriction")
 public class XmlDocument implements IXmlDocument
@@ -329,7 +329,6 @@ public class XmlDocument implements IXmlDocument
      * @param child
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#addChild(xml.IXmlDocument)
      */
     public void addChild(IXmlElement child) throws XmlDocumentCheckedException
     {
@@ -358,7 +357,6 @@ public class XmlDocument implements IXmlDocument
      * @param parent
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#addToChild(xml.IXmlDocument, java.lang.String)
      */
     public void addToChild(IXmlElement child, String parent) throws XmlDocumentCheckedException
     {
@@ -566,7 +564,6 @@ public class XmlDocument implements IXmlDocument
      * @return
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#getAttribute(java.lang.String)
      */
     public String getAttribute(String name) throws XmlDocumentCheckedException
     {
@@ -612,7 +609,6 @@ public class XmlDocument implements IXmlDocument
      * @return
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#getAttributeNames()
      */
     public Collection<String> getAttributeNames() throws XmlDocumentCheckedException
     {
@@ -645,7 +641,6 @@ public class XmlDocument implements IXmlDocument
      * @return
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#getAttributeValues()
      */
     public Collection<String> getAttributeValues() throws XmlDocumentCheckedException
     {
@@ -681,7 +676,6 @@ public class XmlDocument implements IXmlDocument
      * @return
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#getChild(int)
      */
     public IXmlElement getChild(int index) throws XmlDocumentCheckedException
     {
@@ -754,7 +748,6 @@ public class XmlDocument implements IXmlDocument
      * @return
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#getChild(java.lang.String)
      */
     public IXmlElement getChild(String childName) throws XmlDocumentCheckedException
     {
@@ -790,9 +783,6 @@ public class XmlDocument implements IXmlDocument
      * @param attr
      * @return
      * @throws XmlDocumentCheckedException
-     *
-     * @see xml.IXmlDocument#getChildAttribute(java.lang.String,
-     *      java.lang.String)
      */
     public String getChildAttribute(String child, String attr) throws XmlDocumentCheckedException
     {
@@ -885,7 +875,6 @@ public class XmlDocument implements IXmlDocument
      * @return
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#getChildCount()
      */
     public int getChildCount() throws XmlDocumentCheckedException
     {
@@ -911,7 +900,6 @@ public class XmlDocument implements IXmlDocument
      * @return
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#getChildren()
      */
     public Collection<IXmlElement> getChildren() throws XmlDocumentCheckedException
     {
@@ -946,8 +934,6 @@ public class XmlDocument implements IXmlDocument
      * @param name
      * @return
      * @throws XmlDocumentCheckedException
-     *
-     * @see xml.IXmlDocument#getChildren()
      */
     public Collection<IXmlElement> getChildrenByName(String name) throws XmlDocumentCheckedException
     {
@@ -988,7 +974,6 @@ public class XmlDocument implements IXmlDocument
      * @return
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#getChildValue(java.lang.String)
      */
     public String getChildValue(String childName) throws XmlDocumentCheckedException
     {
@@ -1015,7 +1000,6 @@ public class XmlDocument implements IXmlDocument
      * @return
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#getChildValue(java.lang.String)
      */
     public String getCDATASection(String childName) throws XmlDocumentCheckedException
     {
@@ -1172,7 +1156,6 @@ public class XmlDocument implements IXmlDocument
      * @return
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#getName()
      */
     public String getName() throws XmlDocumentCheckedException
     {
@@ -1185,7 +1168,6 @@ public class XmlDocument implements IXmlDocument
      * @return
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#getNameSpace()
      */
     public String getNameSpace() throws XmlDocumentCheckedException
     {
@@ -1198,7 +1180,6 @@ public class XmlDocument implements IXmlDocument
      * @return
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#getValue()
      */
     public String getValue() throws XmlDocumentCheckedException
     {
@@ -1223,7 +1204,6 @@ public class XmlDocument implements IXmlDocument
      * @param file
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#load(java.io.File)
      */
     public void load(File file) throws XmlDocumentCheckedException
     {
@@ -1249,7 +1229,6 @@ public class XmlDocument implements IXmlDocument
      * @param enc
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#load(java.io.File, java.lang.String)
      */
     public void load(File file, String enc) throws XmlDocumentCheckedException
     {
@@ -1274,7 +1253,6 @@ public class XmlDocument implements IXmlDocument
      * @param in
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#load(java.io.InputStream)
      */
     public void load(InputStream in) throws XmlDocumentCheckedException
     {
@@ -1293,7 +1271,6 @@ public class XmlDocument implements IXmlDocument
      * @param enc
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#load(java.io.InputStream, java.lang.String)
      */
     public void load(InputStream in, String enc) throws XmlDocumentCheckedException
     {
@@ -1318,7 +1295,6 @@ public class XmlDocument implements IXmlDocument
      * @param reader
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#load(java.io.Reader)
      */
     public void load(Reader reader) throws XmlDocumentCheckedException
     {
@@ -1336,7 +1312,6 @@ public class XmlDocument implements IXmlDocument
      * @param xml
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#load(java.lang.String)
      */
     public void load(String xml) throws XmlDocumentCheckedException
     {
@@ -1355,7 +1330,6 @@ public class XmlDocument implements IXmlDocument
      * @return
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#removeAttribute(java.lang.String)
      */
     public void removeAttribute(String attrName) throws XmlDocumentCheckedException
     {
@@ -1377,7 +1351,6 @@ public class XmlDocument implements IXmlDocument
      * @return
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#removeChild(int)
      */
     public IXmlElement removeChild(int index) throws XmlDocumentCheckedException
     {
@@ -1411,7 +1384,6 @@ public class XmlDocument implements IXmlDocument
      * @return
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#removeChild(java.lang.String)
      */
     public IXmlElement removeChild(String childName) throws XmlDocumentCheckedException
     {
@@ -1441,7 +1413,6 @@ public class XmlDocument implements IXmlDocument
      * @return List<IXmlElement>
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#removeChild(java.lang.String)
      */
     public List<IXmlElement> removeChildrenWithXpath(String xpathQuery) throws XmlDocumentCheckedException
     {
@@ -1484,7 +1455,6 @@ public class XmlDocument implements IXmlDocument
      * @return List<IXmlElement>
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#removeChild(java.lang.String)
      */
     public IXmlElement removeChildWithXpath(String xpathQuery) throws XmlDocumentCheckedException
     {
@@ -1517,8 +1487,6 @@ public class XmlDocument implements IXmlDocument
      * @return
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#removeChildAttribute(java.lang.String,
-     *      java.lang.String)
      */
     public void removeChildAttribute(String childName, String attrName) throws XmlDocumentCheckedException
     {
@@ -1546,7 +1514,6 @@ public class XmlDocument implements IXmlDocument
      * @param parent
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#replaceAllChildren(xml.IXmlDocument)
      */
     public void replaceAllChildren(IXmlElement parent) throws XmlDocumentCheckedException
     {
@@ -1619,7 +1586,6 @@ public class XmlDocument implements IXmlDocument
      * @return
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#replaceChild(int, xml.IXmlDocument)
      */
     public IXmlElement replaceChild(int index, IXmlElement newChild) throws XmlDocumentCheckedException
     {
@@ -1654,7 +1620,6 @@ public class XmlDocument implements IXmlDocument
      * @return
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#replaceChild(java.lang.String, xml.IXmlDocument)
      */
     public IXmlElement replaceChild(String childName, IXmlElement newChild) throws XmlDocumentCheckedException
     {
@@ -1690,7 +1655,6 @@ public class XmlDocument implements IXmlDocument
      * @param value
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#setAttribute(java.lang.String, java.lang.String)
      */
     public IXmlElement setAttribute(String attrName, String value) throws XmlDocumentCheckedException
     {
@@ -1777,8 +1741,6 @@ public class XmlDocument implements IXmlDocument
      *
      * @param value
      * @throws Exception
-     *
-     * @see xml.IXmlDocument#setValue(java.lang.String)
      */
     public void setCDATASection(String value) throws Exception
     {
@@ -1791,7 +1753,6 @@ public class XmlDocument implements IXmlDocument
      * @param value
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#setValue(java.lang.String)
      */
     public void setValue(String value) throws XmlDocumentCheckedException
     {
@@ -1804,7 +1765,6 @@ public class XmlDocument implements IXmlDocument
      * @param file
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#write(java.io.File)
      */
     public void write(File file) throws XmlDocumentCheckedException
     {
@@ -1869,7 +1829,6 @@ public class XmlDocument implements IXmlDocument
      * @param output
      * @throws XmlDocumentCheckedException
      *
-     * @see xml.IXmlDocument#write(java.io.OutputStream)
      */
     public void write(OutputStream output) throws XmlDocumentCheckedException
     {
@@ -1896,7 +1855,6 @@ public class XmlDocument implements IXmlDocument
      *
      * @return
      *
-     * @see java.lang.Object#toString()
      */
     @Override
     public String toString()

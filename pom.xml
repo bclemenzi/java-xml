@@ -124,6 +124,12 @@
 			<url>https://github.com/bclemenzi</url>
 			<id>bclemenzi</id>
 		</developer>
+		<developer>
+			<email>kraagenskul@yahoo.com</email>
+			<name>Derek Jackson</name>
+			<url>https://github.com/kraagenskul</url>
+			<id>kraagenskul</id>
+		</developer>
 	</developers>
 	
 	<distributionManagement>

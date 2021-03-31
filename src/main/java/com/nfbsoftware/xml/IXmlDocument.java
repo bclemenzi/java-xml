@@ -17,6 +17,7 @@ public interface IXmlDocument extends IXmlElement
      * This method returns the namespace of the current node.
      *
      * @return The namespace of the current node.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     String getNameSpace() throws XmlDocumentCheckedException;
 
@@ -25,8 +26,7 @@ public interface IXmlDocument extends IXmlElement
      * with that of the input file.
      *
      * @param file points to the XML file
-     *
-     * @return boolean Indicates success or failure
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     void load(File file) throws XmlDocumentCheckedException;
 
@@ -35,19 +35,17 @@ public interface IXmlDocument extends IXmlElement
      * with that of the input file.
      *
      * @param file points to the XML file
-     * @param The name of the supported character encoding
-     *
-     * @return boolean Indicates success or failure
+     * @param encoding The name of the supported character encoding
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
-    void load(File file, String enc) throws XmlDocumentCheckedException;
+    void load(File file, String encoding) throws XmlDocumentCheckedException;
 
     /**
      * This method replaces the content of the current root node
      * with that of the Reader.
      *
-     * @param in A reader containing an XML document.
-     *
-     * @return boolean Indicates success or failure
+     * @param reader A reader containing an XML document.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     void load(Reader reader) throws XmlDocumentCheckedException;
 
@@ -56,8 +54,7 @@ public interface IXmlDocument extends IXmlElement
      * with that of the InputStream.
      *
      * @param in A stream containing an XML document.
-     *
-     * @return boolean Indicates success or failure
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     void load(InputStream in) throws XmlDocumentCheckedException;
 
@@ -66,32 +63,30 @@ public interface IXmlDocument extends IXmlElement
      * with that of the InputStream.
      *
      * @param in A stream containing an XML document.
-     * @param The name of the supported character encoding
-     *
-     * @return boolean Indicates success or failure
+     * @param encoding The name of the supported character encoding
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
-    void load(InputStream in, String enc) throws XmlDocumentCheckedException;
+    void load(InputStream in, String encoding) throws XmlDocumentCheckedException;
 
     /**
      * This method replaces the content of the current root node
      * with that of the input string.
      *
      * @param xml A string contains an XML document.
-     *
-     * @return boolean Indicates success or failure
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     void load(String xml) throws XmlDocumentCheckedException;
 
     /**
      * Method getRootElement returns the root element for the xml document.
      * @return IXmlElement root xml element
-     * @throws XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     IXmlElement getRootElement()  throws XmlDocumentCheckedException;
 
     /**
      * Determine if the xml document in question
-     * @throws XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     void isValid() throws XmlDocumentCheckedException;
 }

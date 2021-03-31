@@ -20,7 +20,7 @@ public interface IXslDocument extends Serializable
      *
      * @param file points to the XML file
      *
-     * @return boolean Indicates success or failure
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     void load(File file) throws XmlDocumentCheckedException;
 
@@ -29,11 +29,11 @@ public interface IXslDocument extends Serializable
      * with that of the input file.
      *
      * @param file points to the XML file
-     * @param The name of the supported character encoding
+     * @param encoding The name of the supported character encoding
      *
-     * @return boolean Indicates success or failure
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
-    void load(File file, String enc) throws XmlDocumentCheckedException;
+    void load(File file, String encoding) throws XmlDocumentCheckedException;
 
     /**
      * This method replaces the content of the current root node
@@ -41,7 +41,7 @@ public interface IXslDocument extends Serializable
      *
      * @param in A stream containing an XML document.
      *
-     * @return boolean Indicates success or failure
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     void load(InputStream in) throws XmlDocumentCheckedException;
 
@@ -50,19 +50,19 @@ public interface IXslDocument extends Serializable
      * with that of the InputStream.
      *
      * @param in A stream containing an XML document.
-     * @param The name of the supported character encoding
+     * @param encoding The name of the supported character encoding
      *
-     * @return boolean Indicates success or failure
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
-    void load(InputStream in, String enc) throws XmlDocumentCheckedException;
+    void load(InputStream in, String encoding) throws XmlDocumentCheckedException;
 
     /**
      * This method replaces the content of the current root node
      * with that of the Reader.
      *
-     * @param in A reader containing an XML document.
+     * @param reader A reader containing an XML document.
      *
-     * @return boolean Indicates success or failure
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     void load(Reader reader) throws XmlDocumentCheckedException;
 
@@ -72,7 +72,7 @@ public interface IXslDocument extends Serializable
      *
      * @param xml A string contains an XML document.
      *
-     * @return boolean Indicates success or failure
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     void load(String xml) throws XmlDocumentCheckedException;
 
@@ -80,8 +80,8 @@ public interface IXslDocument extends Serializable
      * This method transforms the xml document using this style sheet.
      *
      * @param xmlFile a file containing the XML document.
-     *
-     * @exception XmlDocumentCheckedException
+     * @return The XML document.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     String transform(File xmlFile) throws XmlDocumentCheckedException;
 
@@ -90,8 +90,8 @@ public interface IXslDocument extends Serializable
      *
      * @param xmlFile the file containing the XML document.
      * @param enc the encoding of the file
-     *
-     * @exception XmlDocumentCheckedException
+     * @return The XML document.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     String transform(File xmlFile, String enc) throws XmlDocumentCheckedException;
 
@@ -99,8 +99,8 @@ public interface IXslDocument extends Serializable
      * This method transforms the xml document using this style sheet.
      *
      * @param stream stream containing the XML document.
-     *
-     * @exception XmlDocumentCheckedException
+     * @return The XML document.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     String transform(InputStream stream) throws XmlDocumentCheckedException;
 
@@ -108,18 +108,18 @@ public interface IXslDocument extends Serializable
      * This method transforms the xml document using this style sheet.
      *
      * @param stream stream containing the XML document.
-     * @param enc the encoding of the stream
-     *
-     * @exception XmlDocumentCheckedException
+     * @param encoding the encoding of the stream
+     * @return The XML document.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
-    String transform(InputStream stream, String enc) throws XmlDocumentCheckedException;
+    String transform(InputStream stream, String encoding) throws XmlDocumentCheckedException;
 
     /**
      * This method transforms the xml document using this style sheet.
      *
      * @param xmlElement a string containing the XML document
-     *
-     * @exception XmlDocumentCheckedException
+     * @return The XML document.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     String transform(IXmlElement xmlElement) throws XmlDocumentCheckedException;
 
@@ -127,8 +127,8 @@ public interface IXslDocument extends Serializable
      * This method transforms the xml document using this style sheet.
      *
      * @param reader a reader containing the XML document
-     *
-     * @exception XmlDocumentCheckedException
+     * @return The XML document.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     String transform(Reader reader) throws XmlDocumentCheckedException;
 
@@ -136,8 +136,8 @@ public interface IXslDocument extends Serializable
      * This method transforms the xml document using this style sheet.
      *
      * @param xml a string containing the XML document
-     *
-     * @exception XmlDocumentCheckedException
+     * @return The XML document.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     String transform(String xml) throws XmlDocumentCheckedException;
 
@@ -145,8 +145,8 @@ public interface IXslDocument extends Serializable
      * This method transforms the xml document using this style sheet.
      *
      * @param xmlFile a file containing the XML document.
-     *
-     * @exception XmlDocumentCheckedException
+     * @return The XML document.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     IXmlDocument transformToXmlDocument(File xmlFile) throws XmlDocumentCheckedException;
 
@@ -154,17 +154,18 @@ public interface IXslDocument extends Serializable
      * This method transforms the xml document using this style sheet.
      *
      * @param xmlFile a file containing the XML document.
-     *
-     * @exception XmlDocumentCheckedException
+     * @param encoding the encoding of the stream
+     * @return The XML document.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
-    IXmlDocument transformToXmlDocument(File xmlFile, String enc) throws XmlDocumentCheckedException;
+    IXmlDocument transformToXmlDocument(File xmlFile, String encoding) throws XmlDocumentCheckedException;
 
     /**
      * This method transforms the xml document using this style sheet.
      *
      * @param stream stream containing the XML document.
-     *
-     * @exception XmlDocumentCheckedException
+     * @return The XML document.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     IXmlDocument transformToXmlDocument(InputStream stream) throws XmlDocumentCheckedException;
 
@@ -172,18 +173,18 @@ public interface IXslDocument extends Serializable
      * This method transforms the xml document using this style sheet.
      *
      * @param stream stream containing the XML document.
-     * @param enc the encoding of the stream
-     *
-     * @exception XmlDocumentCheckedException
+     * @param encoding the encoding of the stream
+     * @return The XML document.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
-    IXmlDocument transformToXmlDocument(InputStream stream, String enc) throws XmlDocumentCheckedException;
+    IXmlDocument transformToXmlDocument(InputStream stream, String encoding) throws XmlDocumentCheckedException;
 
     /**
      * This method transforms the xml document using this style sheet.
      *
      * @param xmlElement the XML document
-     *
-     * @exception XmlDocumentCheckedException
+     * @return The XML document.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     IXmlDocument transformToXmlDocument(IXmlElement xmlElement) throws XmlDocumentCheckedException;
 
@@ -191,8 +192,8 @@ public interface IXslDocument extends Serializable
      * This method transforms the xml document using this style sheet.
      *
      * @param reader a reader containing the XML document
-     *
-     * @exception XmlDocumentCheckedException
+     * @return The XML document.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     IXmlDocument transformToXmlDocument(Reader reader) throws XmlDocumentCheckedException;
 
@@ -200,8 +201,8 @@ public interface IXslDocument extends Serializable
      * This method transforms the xml document using this style sheet.
      *
      * @param xml a string containing the XML document
-     *
-     * @exception XmlDocumentCheckedException
+     * @return The XML document.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     IXmlDocument transformToXmlDocument(String xml) throws XmlDocumentCheckedException;
 }

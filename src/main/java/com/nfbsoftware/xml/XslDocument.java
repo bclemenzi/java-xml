@@ -52,9 +52,7 @@ public class XslDocument implements IXslDocument
 
     /**
      *
-     *
-     *
-     * @throws XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public XslDocument() throws XmlDocumentCheckedException
     {
@@ -75,8 +73,8 @@ public class XslDocument implements IXslDocument
      *
      *
      *
-     * @param file
-     * @throws XmlDocumentCheckedException
+     * @param file File of xsl
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public XslDocument(File file) throws XmlDocumentCheckedException
     {
@@ -97,9 +95,9 @@ public class XslDocument implements IXslDocument
      *
      *
      *
-     * @param file
-     * @param enc
-     * @throws XmlDocumentCheckedException
+     * @param file of XSL
+     * @param enc The encoding.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public XslDocument(File file, String enc) throws XmlDocumentCheckedException
     {
@@ -120,8 +118,8 @@ public class XslDocument implements IXslDocument
      *
      *
      *
-     * @param in
-     * @throws XmlDocumentCheckedException
+     * @param in inputstream with XSL.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public XslDocument(InputStream in) throws XmlDocumentCheckedException
     {
@@ -142,9 +140,9 @@ public class XslDocument implements IXslDocument
      *
      *
      *
-     * @param in
-     * @param enc
-     * @throws XmlDocumentCheckedException
+     * @param in Inputstream with XSL
+     * @param enc Encoding.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public XslDocument(InputStream in, String enc) throws XmlDocumentCheckedException
     {
@@ -165,8 +163,8 @@ public class XslDocument implements IXslDocument
      *
      *
      *
-     * @param reader
-     * @throws XmlDocumentCheckedException
+     * @param reader A reader with XSL.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public XslDocument(Reader reader) throws XmlDocumentCheckedException
     {
@@ -187,8 +185,8 @@ public class XslDocument implements IXslDocument
      *
      *
      *
-     * @param xml
-     * @throws XmlDocumentCheckedException
+     * @param xml A string containing XSL.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public XslDocument(String xml) throws XmlDocumentCheckedException
     {
@@ -206,80 +204,63 @@ public class XslDocument implements IXslDocument
     }
 
     /**
-     *
-     *
-     * @param file
-     * @throws XmlDocumentCheckedException
+     * {@inheritDoc}
      */
+    @Override
     public void load(File file) throws XmlDocumentCheckedException
     {
         mXslDocument.load(file);
     }
 
     /**
-     *
-     *
-     * @param file
-     * @param enc
-     * @throws XmlDocumentCheckedException
+     * {@inheritDoc}
      */
+    @Override
     public void load(File file, String enc) throws XmlDocumentCheckedException
     {
         mXslDocument.load(file, enc);
     }
 
     /**
-     *
-     *
-     * @param in
-     * @throws XmlDocumentCheckedException
+     * {@inheritDoc}
      */
+    @Override
     public void load(InputStream in) throws XmlDocumentCheckedException
     {
         mXslDocument.load(in);
     }
 
     /**
-     *
-     *
-     * @param in
-     * @param enc
-     * @throws XmlDocumentCheckedException
+     * {@inheritDoc}
      */
+    @Override
     public void load(InputStream in, String enc) throws XmlDocumentCheckedException
     {
         mXslDocument.load(in, enc);
     }
 
     /**
-     *
-     *
-     * @param reader
-     * @throws XmlDocumentCheckedException
+     * {@inheritDoc}
      */
+    @Override
     public void load(Reader reader) throws XmlDocumentCheckedException
     {
         mXslDocument.load(reader);
     }
 
     /**
-     *
-     *
-     * @param xml
-     * @throws XmlDocumentCheckedException
+     * {@inheritDoc}
      */
+    @Override
     public void load(String xml) throws XmlDocumentCheckedException
     {
         mXslDocument.load(xml);
     }
 
     /**
-     *
-     *
-     * @param xmlFile
-     * @return
-     * @throws XmlDocumentCheckedException
+     * {@inheritDoc}
      */
+    @Override
     public String transform(File xmlFile) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".transform(File)";
@@ -300,13 +281,9 @@ public class XslDocument implements IXslDocument
     }
 
     /**
-     *
-     *
-     * @param xmlFile
-     * @param enc
-     * @return
-     * @throws XmlDocumentCheckedException
+     * {@inheritDoc}
      */
+    @Override
     public String transform(File xmlFile, String enc) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".transform(File, String)";
@@ -327,12 +304,9 @@ public class XslDocument implements IXslDocument
     }
 
     /**
-     *
-     *
-     * @param stream
-     * @return
-     * @throws XmlDocumentCheckedException
+     * {@inheritDoc}
      */
+    @Override
     public String transform(InputStream stream) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".transform(InputStream)";
@@ -353,13 +327,9 @@ public class XslDocument implements IXslDocument
     }
 
     /**
-     *
-     *
-     * @param stream
-     * @param enc
-     * @return
-     * @throws XmlDocumentCheckedException
+     * {@inheritDoc}
      */
+    @Override
     public String transform(InputStream stream, String enc) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".transform(InputStream, String)";
@@ -380,12 +350,9 @@ public class XslDocument implements IXslDocument
     }
 
     /**
-     *
-     *
-     * @param xmlElement
-     * @return
-     * @throws XmlDocumentCheckedException
+     * {@inheritDoc}
      */
+    @Override
     public String transform(IXmlElement xmlElement) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".transform(IXmlElement)";
@@ -406,12 +373,9 @@ public class XslDocument implements IXslDocument
     }
 
     /**
-     *
-     *
-     * @param reader
-     * @return
-     * @throws XmlDocumentCheckedException
+     * {@inheritDoc}
      */
+    @Override
     public String transform(Reader reader) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".transform(Reader)";
@@ -432,12 +396,9 @@ public class XslDocument implements IXslDocument
     }
 
     /**
-     *
-     *
-     * @param xml
-     * @return
-     * @throws XmlDocumentCheckedException
+     * {@inheritDoc}
      */
+    @Override
     public String transform(String xml) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".transform(String)";
@@ -457,12 +418,9 @@ public class XslDocument implements IXslDocument
     }
 
     /**
-     *
-     *
-     * @param xmlFile
-     * @return
-     * @throws XmlDocumentCheckedException
+     * {@inheritDoc}
      */
+    @Override
     public IXmlDocument transformToXmlDocument(File xmlFile) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".transformToXmlDocument(File)";
@@ -483,13 +441,9 @@ public class XslDocument implements IXslDocument
     }
 
     /**
-     *
-     *
-     * @param xmlFile
-     * @param enc
-     * @return
-     * @throws XmlDocumentCheckedException
+     * {@inheritDoc}
      */
+    @Override
     public IXmlDocument transformToXmlDocument(File xmlFile, String enc) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".transformToXmlDocument(File, String)";
@@ -510,12 +464,9 @@ public class XslDocument implements IXslDocument
     }
 
     /**
-     *
-     *
-     * @param stream
-     * @return
-     * @throws XmlDocumentCheckedException
+     * {@inheritDoc}
      */
+    @Override
     public IXmlDocument transformToXmlDocument(InputStream stream) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".transformToXmlDocument(InputStream)";
@@ -536,13 +487,9 @@ public class XslDocument implements IXslDocument
     }
 
     /**
-     *
-     *
-     * @param stream
-     * @param enc
-     * @return
-     * @throws XmlDocumentCheckedException
+     * {@inheritDoc}
      */
+    @Override
     public IXmlDocument transformToXmlDocument(InputStream stream, String enc) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".transformToXmlDocument(InputStream, String)";
@@ -563,12 +510,9 @@ public class XslDocument implements IXslDocument
     }
 
     /**
-     *
-     *
-     * @param xmlElement
-     * @return
-     * @throws XmlDocumentCheckedException
+     * {@inheritDoc}
      */
+    @Override
     public IXmlDocument transformToXmlDocument(IXmlElement xmlElement) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".transformToXmlDocument(IXmlElement)";
@@ -589,12 +533,9 @@ public class XslDocument implements IXslDocument
     }
 
     /**
-     *
-     *
-     * @param reader
-     * @return
-     * @throws XmlDocumentCheckedException
+     * {@inheritDoc}
      */
+    @Override
     public IXmlDocument transformToXmlDocument(Reader reader) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".transformToXmlDocument(Reader)";
@@ -615,12 +556,9 @@ public class XslDocument implements IXslDocument
     }
 
     /**
-     *
-     *
-     * @param xml
-     * @return
-     * @throws XmlDocumentCheckedException
+     * {@inheritDoc}
      */
+    @Override
     public IXmlDocument transformToXmlDocument(String xml) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".transformToXmlDocument(String)";
@@ -641,7 +579,7 @@ public class XslDocument implements IXslDocument
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
 	public String toString()
@@ -659,7 +597,7 @@ public class XslDocument implements IXslDocument
     /**
      *
      * @return
-     * @throws XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     private DocumentBuilder createDocumentBuilder() throws XmlDocumentCheckedException
     {
@@ -681,7 +619,7 @@ public class XslDocument implements IXslDocument
      *
      * @param xslStr
      * @return
-     * @throws XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     private String transformNodeFromString(String xslStr) throws XmlDocumentCheckedException
     {
@@ -724,7 +662,7 @@ public class XslDocument implements IXslDocument
      *
      * @param xslNode
      * @return
-     * @throws XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     private String transformNodeFromXmlData(IXmlDocument xmlNode) throws XmlDocumentCheckedException
     {
@@ -767,7 +705,7 @@ public class XslDocument implements IXslDocument
      *
      * @param xslNode
      * @return
-     * @throws XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     private XmlDocument transformNodeFromXmlDataToXmlData(IXmlDocument xmlNode) throws XmlDocumentCheckedException
     {

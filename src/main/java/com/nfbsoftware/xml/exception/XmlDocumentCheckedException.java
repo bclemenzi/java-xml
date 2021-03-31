@@ -305,7 +305,7 @@ public class XmlDocumentCheckedException extends NfbCheckedException
     /**
      * Constructs a <code>XmlDocumentCheckedException</code> instance.
      * 
-     * @param debugInformation
+     * @param debugInformation The text for debugging issues.
      * @param rootCause ex the exception to wrap
      * 
      */
@@ -346,6 +346,7 @@ public class XmlDocumentCheckedException extends NfbCheckedException
      *
      * @param debugInformation  debug information
      * @param rootCause ex the exception to wrap
+     * @param severity The severity of the exception.
      *
      */
     public XmlDocumentCheckedException(String debugInformation, Throwable rootCause, int severity)
@@ -383,6 +384,7 @@ public class XmlDocumentCheckedException extends NfbCheckedException
     /**
      * Constructs a <code>XmlDocumentCheckedException</code> instance.
      *
+     * @param arg The object that was exceptional
      * @param debugInformation  debug information
      * @param rootCause ex the exception to wrap
      *
@@ -436,9 +438,10 @@ public class XmlDocumentCheckedException extends NfbCheckedException
     /**
      * Constructs a <code>XmlDocumentCheckedException</code> instance.
      *
+     * @param args The args.
      * @param debugInformation  debug information
      * @param rootCause ex the exception to wrap
-     *
+     * @param severity the level of the error.
      */
     public XmlDocumentCheckedException(Object[] args, String debugInformation, Throwable rootCause, int severity)
     {

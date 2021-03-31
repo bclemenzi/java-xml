@@ -46,7 +46,6 @@ import com.nfbsoftware.xml.exception.XmlDocumentCheckedException;
  * @author Brendan Clemenzi
 * 
  */
-@SuppressWarnings("restriction")
 public class XmlDocument implements IXmlDocument
 {
     /**
@@ -106,7 +105,7 @@ public class XmlDocument implements IXmlDocument
      *
      *
      *
-     * @throws XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public XmlDocument() throws XmlDocumentCheckedException
     {
@@ -117,8 +116,8 @@ public class XmlDocument implements IXmlDocument
      *
      *
      *
-     * @param file
-     * @throws XmlDocumentCheckedException
+     * @param file The XML file.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public XmlDocument(File file) throws XmlDocumentCheckedException
     {
@@ -143,9 +142,9 @@ public class XmlDocument implements IXmlDocument
      *
      *
      *
-     * @param file
-     * @param enc
-     * @throws XmlDocumentCheckedException
+     * @param file The file containing the XML document
+     * @param enc The encoding
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public XmlDocument(File file, String enc) throws XmlDocumentCheckedException
     {
@@ -168,8 +167,8 @@ public class XmlDocument implements IXmlDocument
      *
      *
      *
-     * @param in
-     * @throws XmlDocumentCheckedException
+     * @param in The input stream with the xml document.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public XmlDocument(InputStream in) throws XmlDocumentCheckedException
     {
@@ -185,9 +184,9 @@ public class XmlDocument implements IXmlDocument
      *
      *
      *
-     * @param in
-     * @param enc
-     * @throws XmlDocumentCheckedException
+     * @param in The input stream with the xml document.
+     * @param enc the encoding
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public XmlDocument(InputStream in, String enc) throws XmlDocumentCheckedException
     {
@@ -210,8 +209,8 @@ public class XmlDocument implements IXmlDocument
      *
      *
      *
-     * @param reader
-     * @throws XmlDocumentCheckedException
+     * @param reader The reader with the xml document.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public XmlDocument(Reader reader) throws XmlDocumentCheckedException
     {
@@ -223,12 +222,20 @@ public class XmlDocument implements IXmlDocument
         }
     }
 
+    /**
+     * @param node Node to create element from. 
+     * @param doc Document to create element from.
+     */
     public XmlDocument(Node node, Document doc)
     {
         mRootNode = node;
         mDocument = doc;
     }
 
+    /**
+     * @param xmlDocument An xml document
+     * @throws XmlDocumentCheckedException If the XML is invalid.
+     */
     public XmlDocument(IXmlDocument xmlDocument) throws XmlDocumentCheckedException
     {
         // final String debugString = getClass().getName() +
@@ -241,10 +248,8 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     *
-     *
-     * @param xml
-     * @throws XmlDocumentCheckedException
+     * @param xml A string with hopefully valid XML.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public XmlDocument(final String xml) throws XmlDocumentCheckedException
     {
@@ -258,7 +263,7 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     * @throws XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     private void create() throws XmlDocumentCheckedException
     {
@@ -269,9 +274,9 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     * @param node
-     * @param doc
-     * @return
+     * @param node Node to create element from. 
+     * @param doc Document to create element from.
+     * @return A new element from the node.
      */
     private XmlDocument create(org.w3c.dom.Node node, org.w3c.dom.Document doc)
     {
@@ -280,9 +285,8 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     * @param node
-     * @param doc
-     * @return
+     * @param node Node to create element from. 
+     * @return A new element from the node.
      */
     private IXmlElement create(org.w3c.dom.Node node) throws XmlDocumentCheckedException
     {
@@ -297,10 +301,10 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     * @param child
-     * @param value
+     * @param child to be added to current root node of this object.
+     * @param value of child.
      * @return
-     * @throws XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     private XmlDocument createNewChild(String child, String value) throws XmlDocumentCheckedException
     {
@@ -326,8 +330,8 @@ public class XmlDocument implements IXmlDocument
     /**
      *
      *
-     * @param child
-     * @throws XmlDocumentCheckedException
+     * @param child Child to be added to current root node of this object.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      *
      */
     public void addChild(IXmlElement child) throws XmlDocumentCheckedException
@@ -353,9 +357,9 @@ public class XmlDocument implements IXmlDocument
     /**
      *
      *
-     * @param child
-     * @param parent
-     * @throws XmlDocumentCheckedException
+     * @param parent Parent XML that will have the child added to it. 
+     * @param child XML Document
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      *
      */
     public void addToChild(IXmlElement child, String parent) throws XmlDocumentCheckedException
@@ -379,9 +383,9 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     * @param parent
-     * @param child
-     * @throws XmlDocumentCheckedException
+     * @param parent Parent XML that will have the child added to it. 
+     * @param child XML Document
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public void appendChildByName(String parent, XmlDocument child) throws XmlDocumentCheckedException
     {
@@ -418,9 +422,11 @@ public class XmlDocument implements IXmlDocument
     /**
      *
      *
-     * @param deep
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @param deep If <code>true</code>, recursively clone the subtree under 
+     *   the specified node; if <code>false</code>, clone only the node 
+     *   itself (and its attributes, if it is an <code>Element</code>).
+     * @return A new XMLDocument that should be a copy of the current one.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public IXmlDocument clone(boolean deep) throws XmlDocumentCheckedException
     {
@@ -444,10 +450,10 @@ public class XmlDocument implements IXmlDocument
     /**
      *
      *
-     * @param childName
-     * @param value
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @param childName The element's desired name.
+     * @param value The element's value.
+     * @return A new XMLElement with the name and value assigned to it.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public IXmlElement createChild(String childName, String value) throws XmlDocumentCheckedException
     {
@@ -470,9 +476,9 @@ public class XmlDocument implements IXmlDocument
     /**
      *
      *
-     * @param fullChildPath
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @param fullChildPath The full child path for the element to be created from.
+     * @return A new XmlElement from the child.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public IXmlElement createChildren(String fullChildPath) throws XmlDocumentCheckedException
     {
@@ -496,8 +502,9 @@ public class XmlDocument implements IXmlDocument
      * This method creates a standing alone XmlData object with sName and
      * sValue. Note: NameSpace is not supported for all the implementations.
      *
-     * @param child
-     *            Child name in XPath format, like REQUEST/HEADER/INFO
+     * @param child Child name in XPath format, like REQUEST/HEADER/INFO
+     * @return A new XML Document from the child.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public XmlDocument createChildByName(String child) throws XmlDocumentCheckedException
     {
@@ -521,6 +528,7 @@ public class XmlDocument implements IXmlDocument
      * This method returns the root node of the internal XML document.
      *
      * @return root node
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public Node getRootNode() throws XmlDocumentCheckedException
     {
@@ -531,6 +539,7 @@ public class XmlDocument implements IXmlDocument
      * This method returns the document node of the internal XML document.
      *
      * @return document node
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public Document getDocument() throws XmlDocumentCheckedException
     {
@@ -560,9 +569,9 @@ public class XmlDocument implements IXmlDocument
     /**
      *
      *
-     * @param name
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @param name The attribute name.
+     * @return The attrivute's value. If there is no value it will return an empty string. 
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      *
      */
     public String getAttribute(String name) throws XmlDocumentCheckedException
@@ -585,9 +594,9 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     * @param sName
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @param sName The attribute's name.
+     * @return The attribute's value; if there is no value it will return an empty string.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public final String getAttributeByName(String sName) throws XmlDocumentCheckedException
     {
@@ -606,8 +615,8 @@ public class XmlDocument implements IXmlDocument
     /**
      *
      *
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @return A collection of attribute names associated with this document.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      *
      */
     public Collection<String> getAttributeNames() throws XmlDocumentCheckedException
@@ -638,8 +647,8 @@ public class XmlDocument implements IXmlDocument
     /**
      *
      *
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @return A collection of attribute values associated with this document.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      *
      */
     public Collection<String> getAttributeValues() throws XmlDocumentCheckedException
@@ -671,10 +680,10 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     *
-     * @param index
-     * @return
-     * @throws XmlDocumentCheckedException
+     *.
+     * @param index The desired position
+     * @return The child 
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      *
      */
     public IXmlElement getChild(int index) throws XmlDocumentCheckedException
@@ -744,9 +753,9 @@ public class XmlDocument implements IXmlDocument
     /**
      *
      *
-     * @param childName
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @param childName The child's name.
+     * @return The corresponding element.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      *
      */
     public IXmlElement getChild(String childName) throws XmlDocumentCheckedException
@@ -779,10 +788,10 @@ public class XmlDocument implements IXmlDocument
     /**
      *
      *
-     * @param child
-     * @param attr
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @param child The child.
+     * @param attr The attribute of the child.
+     * @return The matching value; if there is no matching value it will return an empty string.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public String getChildAttribute(String child, String attr) throws XmlDocumentCheckedException
     {
@@ -820,8 +829,8 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @return The number of children in this document.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public final int getChildrenCount() throws XmlDocumentCheckedException
     {
@@ -842,9 +851,9 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     * @param childNodes
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @param childNodes A list of nodes.
+     * @return The length of the list.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     private final int getElementChildNodesLength(NodeList childNodes) throws XmlDocumentCheckedException
     {
@@ -872,8 +881,8 @@ public class XmlDocument implements IXmlDocument
     /**
      *
      *
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @return The number of children.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      *
      */
     public int getChildCount() throws XmlDocumentCheckedException
@@ -897,8 +906,8 @@ public class XmlDocument implements IXmlDocument
     /**
      *
      *
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @return A list of children in the current document.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      *
      */
     public Collection<IXmlElement> getChildren() throws XmlDocumentCheckedException
@@ -931,9 +940,9 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     * @param name
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @param name The children's name.
+     * @return A list of children matching the name; it will return an empty collection if there are no matches.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public Collection<IXmlElement> getChildrenByName(String name) throws XmlDocumentCheckedException
     {
@@ -970,9 +979,9 @@ public class XmlDocument implements IXmlDocument
     /**
      *
      *
-     * @param childName
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @param childName The name of the child.
+     * @return The value of the corresponding child.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      *
      */
     public String getChildValue(String childName) throws XmlDocumentCheckedException
@@ -996,9 +1005,9 @@ public class XmlDocument implements IXmlDocument
     /**
      *
      *
-     * @param childName
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @param childName The name of the child.
+     * @return The corresponding CDATA of the child.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      *
      */
     public String getCDATASection(String childName) throws XmlDocumentCheckedException
@@ -1021,9 +1030,9 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     * @param sChild
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @param sChild The name of the child.
+     * @return The corresponding name value.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public final String getNodeValue(String sChild) throws XmlDocumentCheckedException
     {
@@ -1051,6 +1060,12 @@ public class XmlDocument implements IXmlDocument
         }
     }
 
+    /**
+     * @param childName The child name.
+     * @param root The root node.
+     * @return The corresponding nodes.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
+     */
     protected NodeList selectNodesViaXPath(String childName, Node root) throws XmlDocumentCheckedException
     {
         if (root == null)
@@ -1072,9 +1087,9 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     * @param node
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @param node The node.
+     * @return The value of the corresponding node or an empty string if there is no value.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     protected final String getNodeTextValue(Node node) throws XmlDocumentCheckedException
     {
@@ -1096,9 +1111,9 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     * @param sChild
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @param sChild The child.
+     * @return The corresponding CDATA value or an empty String if there is none.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public final String getCDATAValue(String sChild) throws XmlDocumentCheckedException
     {
@@ -1128,9 +1143,9 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     * @param node
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @param node The desired node.
+     * @return The corresponding CDATA value or an empty String if there is none.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     protected final String getCDATATextValue(Node node) throws XmlDocumentCheckedException
     {
@@ -1153,8 +1168,8 @@ public class XmlDocument implements IXmlDocument
     /**
      *
      *
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @return The name of the root node.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      *
      */
     public String getName() throws XmlDocumentCheckedException
@@ -1163,24 +1178,18 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *
-     *
-     * @return
-     * @throws XmlDocumentCheckedException
-     *
+     * {@inheritDoc}
      */
+    @Override
     public String getNameSpace() throws XmlDocumentCheckedException
     {
         return (mRootNode).getNodeName();
     }
 
     /**
-     *
-     *
-     * @return
-     * @throws XmlDocumentCheckedException
-     *
+     * {@inheritDoc}
      */
+    @Override
     public String getValue() throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".getValue()";
@@ -1199,12 +1208,9 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *
-     *
-     * @param file
-     * @throws XmlDocumentCheckedException
-     *
+     * {@inheritDoc}
      */
+    @Override
     public void load(File file) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".load(File)";
@@ -1223,13 +1229,9 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *
-     *
-     * @param file
-     * @param enc
-     * @throws XmlDocumentCheckedException
-     *
+     * {@inheritDoc}
      */
+    @Override
     public void load(File file, String enc) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".load(File, String)";
@@ -1248,12 +1250,9 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *
-     *
-     * @param in
-     * @throws XmlDocumentCheckedException
-     *
+     * {@inheritDoc}
      */
+    @Override
     public void load(InputStream in) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".load(InputStream)";
@@ -1265,13 +1264,9 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *
-     *
-     * @param in
-     * @param enc
-     * @throws XmlDocumentCheckedException
-     *
+     * {@inheritDoc}
      */
+    @Override
     public void load(InputStream in, String enc) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".load(InputStream, String)";
@@ -1290,12 +1285,9 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *
-     *
-     * @param reader
-     * @throws XmlDocumentCheckedException
-     *
+     * {@inheritDoc}
      */
+    @Override
     public void load(Reader reader) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".load(Reader)";
@@ -1307,12 +1299,9 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *
-     *
-     * @param xml
-     * @throws XmlDocumentCheckedException
-     *
+     * {@inheritDoc}
      */
+    @Override
     public void load(String xml) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".load(String)";
@@ -1324,13 +1313,9 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *
-     *
-     * @param attrName
-     * @return
-     * @throws XmlDocumentCheckedException
-     *
+     * {@inheritDoc}
      */
+    @Override
     public void removeAttribute(String attrName) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".removeAttribute(String)";
@@ -1345,13 +1330,9 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *
-     *
-     * @param index
-     * @return
-     * @throws XmlDocumentCheckedException
-     *
+     * {@inheritDoc}
      */
+    @Override
     public IXmlElement removeChild(int index) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".removeChild(int)";
@@ -1378,13 +1359,9 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *
-     *
-     * @param childName
-     * @return
-     * @throws XmlDocumentCheckedException
-     *
+     * {@inheritDoc}
      */
+    @Override
     public IXmlElement removeChild(String childName) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".removeChild(String)";
@@ -1407,13 +1384,9 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *
-     *
-     * @param xpathQuery
-     * @return List<IXmlElement>
-     * @throws XmlDocumentCheckedException
-     *
+     * {@inheritDoc}
      */
+    @Override
     public List<IXmlElement> removeChildrenWithXpath(String xpathQuery) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".removeChildrenWithXpath(String)";
@@ -1449,13 +1422,9 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *
-     *
-     * @param xpathQuery
-     * @return List<IXmlElement>
-     * @throws XmlDocumentCheckedException
-     *
+     * {@inheritDoc}
      */
+    @Override
     public IXmlElement removeChildWithXpath(String xpathQuery) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".removeChildWithXpath(String)";
@@ -1480,14 +1449,9 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *
-     *
-     * @param childName
-     * @param attrName
-     * @return
-     * @throws XmlDocumentCheckedException
-     *
+     * {@inheritDoc}
      */
+    @Override
     public void removeChildAttribute(String childName, String attrName) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".removeChildAttribute(String, String)";
@@ -1509,12 +1473,9 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *
-     *
-     * @param parent
-     * @throws XmlDocumentCheckedException
-     *
+     * {@inheritDoc}
      */
+    @Override
     public void replaceAllChildren(IXmlElement parent) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".replaceAllChildren(IXmlElement)";
@@ -1579,14 +1540,9 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *
-     *
-     * @param index
-     * @param newChild
-     * @return
-     * @throws XmlDocumentCheckedException
-     *
+     * {@inheritDoc}
      */
+    @Override
     public IXmlElement replaceChild(int index, IXmlElement newChild) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".replaceChild(int, IXmlElement)";
@@ -1613,14 +1569,9 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *
-     *
-     * @param childName
-     * @param newChild
-     * @return
-     * @throws XmlDocumentCheckedException
-     *
+     * {@inheritDoc}
      */
+    @Override
     public IXmlElement replaceChild(String childName, IXmlElement newChild) throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".replaceChild(String, IXmlElement)";
@@ -1649,13 +1600,9 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *
-     *
-     * @param attrName
-     * @param value
-     * @throws XmlDocumentCheckedException
-     *
+     * {@inheritDoc}
      */
+    @Override
     public IXmlElement setAttribute(String attrName, String value) throws XmlDocumentCheckedException
     {
         Attr attr = (Attr) mRootNode.getAttributes().getNamedItem(attrName);
@@ -1679,9 +1626,9 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     * @param node
-     * @param sValue
-     * @throws XmlDocumentCheckedException
+     * @param node The specific node that will have its value set.
+     * @param sValue The value. 
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     protected final void setTextValue(Node node, String sValue) throws XmlDocumentCheckedException
     {
@@ -1716,9 +1663,9 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     * @param node
-     * @param sValue
-     * @throws Exception
+     * @param node The specific node that will have its value set.
+     * @param sValue The value.
+     * @throws Exception If something goes horribly wrong.
      */
     protected final void setCDATASection(Node node, String sValue) throws Exception
     {
@@ -1738,9 +1685,8 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     *
-     * @param value
-     * @throws Exception
+     * @param value The desired String that will become the target's value.
+     * @throws Exception If something goes horribly wrong.
      */
     public void setCDATASection(String value) throws Exception
     {
@@ -1749,9 +1695,8 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     *
-     * @param value
-     * @throws XmlDocumentCheckedException
+     * @param value The desired String that will become the node's value.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      *
      */
     public void setValue(String value) throws XmlDocumentCheckedException
@@ -1762,8 +1707,8 @@ public class XmlDocument implements IXmlDocument
     /**
      *
      *
-     * @param file
-     * @throws XmlDocumentCheckedException
+     * @param file The file the XML will be saved to.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      *
      */
     public void write(File file) throws XmlDocumentCheckedException
@@ -1786,8 +1731,8 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     * @param output
-     * @throws XmlDocumentCheckedException
+     * @param output The output stream the document will be written to. 
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     private void writeToStream(OutputStream output) throws XmlDocumentCheckedException
     {
@@ -1824,23 +1769,18 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *
-     *
-     * @param output
-     * @throws XmlDocumentCheckedException
-     *
+     * {@inheritDoc}
      */
+    @Override
     public void write(OutputStream output) throws XmlDocumentCheckedException
     {
         writeToStream(output);
     }
 
     /**
-     * Method getRootElement returns the root element for the xml document.
-     * 
-     * @return IXmlElement root xml element
-     * @throws XmlDocumentCheckedException
+     * {@inheritDoc}
      */
+    @Override
     public IXmlElement getRootElement() throws XmlDocumentCheckedException
     {
         // final String debugString = getClass().getName() +
@@ -1850,11 +1790,7 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     * Returns the document as a string.
-     *
-     *
-     * @return
-     *
+     * {@inheritDoc}
      */
     @Override
     public String toString()
@@ -1877,11 +1813,7 @@ public class XmlDocument implements IXmlDocument
         return stringwriter.toString();
     }
 
-    /**
-     *
-     * @return
-     * @throws XmlDocumentCheckedException
-     */
+
     private DocumentBuilder createDocumentBuilder() throws XmlDocumentCheckedException
     {
         final String debugString = getClass().getName() + ".createDocumentBuilder()";
@@ -1902,8 +1834,7 @@ public class XmlDocument implements IXmlDocument
      * This method replaces the content of the current root node with that of
      * the InputStream.
      *
-     * @param in
-     *            A stream containing an XML document.
+     * @param in A stream containing an XML document.
      * @return boolean Indicates success or failure
      */
     public boolean replaceFromStream(InputStream in)
@@ -1915,24 +1846,22 @@ public class XmlDocument implements IXmlDocument
      * This method replaces the content of the current root node with that of
      * the InputStream.
      *
-     * @param in
-     *            A stream containing an XML document.
-     * @param The
-     *            name of the supported character encoding
+     * @param in A stream containing an XML document.
+     * @param encoding The name of the supported character encoding
      * @return boolean Indicates success or failure
+     * @throws java.io.UnsupportedEncodingException If the encoding is not supported.
      */
-    public boolean replaceFromStream(InputStream in, String enc) throws java.io.UnsupportedEncodingException
+    public boolean replaceFromStream(InputStream in, String encoding) throws java.io.UnsupportedEncodingException
     {
-        return replaceFromReader(new InputStreamReader(in, enc));
+        return replaceFromReader(new InputStreamReader(in, encoding));
     }
 
     /**
-     * Description of the Method
+     * This method replaces the content of the current root node with that of
+     * the reader.
      *
-     * @author Brendan Clemezi
-     * @param reader
-     *            Description of Parameter
-     * @return Description of the Returned Value
+     * @param reader A reader stream with an XML document.
+     * @return boolean Indicates success or failure
      */
     public boolean replaceFromReader(Reader reader)
     {
@@ -1963,8 +1892,7 @@ public class XmlDocument implements IXmlDocument
      * This method replaces the content of the current root node with that of
      * the input string.
      *
-     * @param xml
-     *            A string contains an XML document.
+     * @param xml A string contains an XML document.
      * @return boolean Indicates success or failure
      */
     public final boolean replaceFromString(String xml)
@@ -1975,10 +1903,8 @@ public class XmlDocument implements IXmlDocument
     /**
      * Description of the Method
      *
-     * @author Brendan Clemezi
-     * @param sChildName
-     *            Description of Parameter
-     * @return Description of the Returned Value
+     * @param sChildName The child element's name.
+     * @return The node with the child element's name.
      */
     protected Node prvGetChildByName(String sChildName)
     {
@@ -2150,9 +2076,7 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     * @param sChild
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     private final Node prgCreateChildByName(String sChild) throws XmlDocumentCheckedException
     {
@@ -2212,8 +2136,8 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @return The number of attributes.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public final int getAttributeCount() throws XmlDocumentCheckedException
     {
@@ -2221,8 +2145,7 @@ public class XmlDocument implements IXmlDocument
     }
 
     /**
-     *
-     * @throws XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public void isValid() throws XmlDocumentCheckedException
     {
@@ -2255,9 +2178,9 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     * @param index
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @param index Desired position.
+     * @return Attribute name.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     public final String getAttributeNameByIndex(int index) throws XmlDocumentCheckedException
     {
@@ -2283,10 +2206,10 @@ public class XmlDocument implements IXmlDocument
 
     /**
      *
-     * @param parent
-     * @param index
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @param parent The parent node.
+     * @param index The position of the child.
+     * @return The child node.
+     * @throws XmlDocumentCheckedException If the XML is invalid or the index is invalid.
      */
     private final Node getElementChildByIndex(Node parent, int index) throws XmlDocumentCheckedException
     {

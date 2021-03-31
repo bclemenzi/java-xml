@@ -208,7 +208,8 @@ public class XmlDocumentRuntimeException extends NfbRuntimeException
      * Constructs a <code>XmlDocumentRuntimeException</code> instance. If a
      * log has been configured for this exception type, the constructor logs
      * the exception.
-     *
+     * 
+     * @param arg An argument
      * @param debugInformation  debug information
      * @param rootCause ex the exception to wrap
      *

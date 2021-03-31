@@ -162,7 +162,6 @@ public abstract class NfbRuntimeException extends RuntimeException
      * @param args              an argument array
      * @param debugInformation  debug information
      * @param rootCause         the root cause
-     * @param severity          the severity (based upon the constants defined in the util.Severity class)
      */
     public NfbRuntimeException(Code code, Object[] args, String debugInformation, Throwable rootCause)
     {

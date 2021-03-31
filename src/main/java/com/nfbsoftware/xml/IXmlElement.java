@@ -23,7 +23,7 @@ public interface IXmlElement extends Serializable
      *
      * @param child the child node to append
      *
-     * @exception IconstructsException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     void addChild(IXmlElement child) throws XmlDocumentCheckedException;
 
@@ -34,7 +34,7 @@ public interface IXmlElement extends Serializable
      * @param child the child node to append.
      * @param parent a string contains the path to the element to be appended to.
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     void addToChild(IXmlElement child, String parent) throws XmlDocumentCheckedException;
 
@@ -45,7 +45,7 @@ public interface IXmlElement extends Serializable
      * @param deep Indicates whether it is a deep clone or just cloning the node
      * @return IXmlDocument the new document object
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     IXmlDocument clone(boolean deep) throws XmlDocumentCheckedException;
     
@@ -59,7 +59,7 @@ public interface IXmlElement extends Serializable
      *
      * @return XmlDocument Contains the newly created child node
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     IXmlElement createChild(String childName) throws XmlDocumentCheckedException;
 
@@ -74,7 +74,7 @@ public interface IXmlElement extends Serializable
      *
      * @return XmlDocument Contains the newly created child node
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     IXmlElement createChild(String childName, String value) throws XmlDocumentCheckedException;
 
@@ -87,18 +87,17 @@ public interface IXmlElement extends Serializable
      *
      * @return IXmlElement the first element in the child path
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     IXmlElement createChildren(String fullChildPath) throws XmlDocumentCheckedException;
 
     /**
      * This method returns the attribute's value according to input attribute name.
      *
-     * @param String sName Attribute name
-     *
+     * @param name Attribute name
      * @return A string contains attribute value
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     String getAttribute(String name) throws XmlDocumentCheckedException;
 
@@ -107,7 +106,7 @@ public interface IXmlElement extends Serializable
      *
      * @return a Collection of attribute names
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     Collection<String> getAttributeNames() throws XmlDocumentCheckedException;
 
@@ -116,7 +115,7 @@ public interface IXmlElement extends Serializable
      *
      * @return a Collection of attribute values
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     Collection<String> getAttributeValues() throws XmlDocumentCheckedException;
 
@@ -124,11 +123,11 @@ public interface IXmlElement extends Serializable
      * This method returns an IXmlElement object that contains the child element
      * at the given index.
      *
-     * @param int index
+     * @param index The array number of the child.
      *
      * @return An IXmlElement object representing the child element
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     IXmlElement getChild(int index) throws XmlDocumentCheckedException;
 
@@ -138,11 +137,11 @@ public interface IXmlElement extends Serializable
      * returned. This method throws an exception if no child element matches
      * the specified name.
      *
-     * @param childName a string containint the path to the child element
+     * @param childName a string containing the path to the child element
      *
      * @return XmlDocument The first child node identified by the path
      *
-     * @exception XmlDocumentCheckedException If there is no child element matches
+     * @throws XmlDocumentCheckedException If the XML is invalid. If there is no child element matches
      * the specified name, an exception with <code>XmlDocumentCheckedException.Codes.CHILD_NOT_FOUND
      * </code> is thrown. Exception for other reasons will have exception code <code>
      * XmlDocumentCheckedException.Codes.GENERAL_ERROR</code>
@@ -151,17 +150,18 @@ public interface IXmlElement extends Serializable
     
     /**
      * 
-     * @param xpathQuery
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @param xpathQuery The XPath string designated the desired children. 
+     * @return A list of the matching children. If there are no matching children 
+     * it will return an empty list.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     List<IXmlElement> selectChildren(String xpathQuery) throws XmlDocumentCheckedException;
     
     /**
      * 
-     * @param xpathQuery
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @param xpathQuery The XPath string designated the desired child.
+     * @return The element with the matching child. Returns null if there is no match.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     IXmlElement selectChild(String xpathQuery) throws XmlDocumentCheckedException;
 
@@ -173,16 +173,16 @@ public interface IXmlElement extends Serializable
      *
      * @return A string contains the attribute value
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     String getChildAttribute(String child, String attr) throws XmlDocumentCheckedException;
 
     /**
      * This method returns the number of children.
      *
-     * @return int Number of children
+     * @return Number of children
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     int getChildCount() throws XmlDocumentCheckedException;
 
@@ -191,17 +191,17 @@ public interface IXmlElement extends Serializable
      *
      * @return a collection of the element's children
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     Collection<IXmlElement> getChildren() throws XmlDocumentCheckedException;
 
     /**
      * This method returns all of this element's children with the given name.
      *
-     * @param name
+     * @param name of the desired children.
      * @return a collection of the element's children
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     Collection<IXmlElement> getChildrenByName(String name) throws XmlDocumentCheckedException;
 
@@ -212,7 +212,7 @@ public interface IXmlElement extends Serializable
      *
      * @return the value of the child element
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     String getChildValue(String childName) throws XmlDocumentCheckedException;
 
@@ -223,7 +223,7 @@ public interface IXmlElement extends Serializable
      *
      * @return the value of the child element
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     String getCDATASection(String childName) throws XmlDocumentCheckedException;
 
@@ -232,7 +232,7 @@ public interface IXmlElement extends Serializable
      *
      * @return the element name
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     String getName() throws XmlDocumentCheckedException;
 
@@ -241,21 +241,21 @@ public interface IXmlElement extends Serializable
      *
      * @return the value of the element
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     String getValue() throws XmlDocumentCheckedException;
 
     /**
      *
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @return The current document.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     Document getDocument() throws XmlDocumentCheckedException;
 
     /**
      *
-     * @return
-     * @throws XmlDocumentCheckedException
+     * @return The root node.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     Node getRootNode() throws XmlDocumentCheckedException;
 
@@ -264,7 +264,7 @@ public interface IXmlElement extends Serializable
      *
      * @param attributeName the name of the attribute
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     void removeAttribute(String attributeName) throws XmlDocumentCheckedException;
 
@@ -275,52 +275,50 @@ public interface IXmlElement extends Serializable
      *
      * @return the removed child
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     IXmlElement removeChild(int index) throws XmlDocumentCheckedException;
 
     /**
      * This method removes a child element.
      *
-     * @param child the name of the element to remove
+     * @param childName the name of the element to remove
      *
      * @return the removed child
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     IXmlElement removeChild(String childName) throws XmlDocumentCheckedException;
     
     /**
      * This method removes a single child element with the given xpath query.
      *
-     * @param xPath query to identify element
+     * @param xpathQuery query to identify element
      *
      * @return the removed child
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     IXmlElement removeChildWithXpath(String xpathQuery) throws XmlDocumentCheckedException;
     
     /**
      * This method removes all child elements with the given xpath query.
      *
-     * @param xPath query to identify elements
+     * @param xpathQuery query to identify elements
      *
      * @return the removed child
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     List<IXmlElement> removeChildrenWithXpath(String xpathQuery) throws XmlDocumentCheckedException;
 
     /**
      * This method removes an attribute from a child element
      *
-     * @param childName the name of the child element
+     * @param child the name of the child element
      * @param attributeName the name of the attribute to remove
      *
-     * @return the value of the removed attribute
-     *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     void removeChildAttribute(String child, String attributeName) throws XmlDocumentCheckedException;
 
@@ -330,7 +328,7 @@ public interface IXmlElement extends Serializable
      *
      * @param parent the element whose children are added to this element
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     void replaceAllChildren(IXmlElement parent) throws XmlDocumentCheckedException;
 
@@ -343,7 +341,7 @@ public interface IXmlElement extends Serializable
      *
      * @return the replaced element
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     IXmlElement replaceChild(int index, IXmlElement newChild) throws XmlDocumentCheckedException;
 
@@ -356,7 +354,7 @@ public interface IXmlElement extends Serializable
      *
      * @return the replaced element
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     IXmlElement replaceChild(String childName, IXmlElement newChild) throws XmlDocumentCheckedException;
 
@@ -367,8 +365,8 @@ public interface IXmlElement extends Serializable
      * @param attributeName the attribute name
      *
      * @param value the attribute value
-     *
-     * @exception XmlDocumentCheckedException
+     * @return The element.
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     IXmlElement setAttribute(String attributeName, String value) throws XmlDocumentCheckedException;
 
@@ -377,7 +375,7 @@ public interface IXmlElement extends Serializable
      *
      * @param value the new element value
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     void setValue(String value) throws XmlDocumentCheckedException;
 
@@ -386,7 +384,7 @@ public interface IXmlElement extends Serializable
      *
      * @param value the new element value
      *
-     * @exception Exception
+     * @throws Exception If anything bad happens.
      */
     void setCDATASection(String value) throws Exception;
 
@@ -395,7 +393,7 @@ public interface IXmlElement extends Serializable
      *
      * @param file File in which to store the XML document
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     void write(File file) throws XmlDocumentCheckedException;
 
@@ -403,9 +401,9 @@ public interface IXmlElement extends Serializable
      * This methods writes the content of the current XML document to the
      * output stream.
      *
-     * @param OutputStream output Contains the output stream to write to
+     * @param output Contains the output stream to write to
      *
-     * @exception XmlDocumentCheckedException
+     * @throws XmlDocumentCheckedException If the XML is invalid.
      */
     void write(OutputStream output) throws XmlDocumentCheckedException;
 

@@ -19,15 +19,22 @@ import java.util.Vector;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.xerces.dom.DocumentImpl;
-import org.apache.xml.serialize.OutputFormat;
-import org.apache.xml.serialize.XMLSerializer;
-import org.apache.xpath.CachedXPathAPI;
 import org.w3c.dom.Attr;
+import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -69,11 +76,6 @@ public class XmlDocument implements IXmlDocument
      *
      */
     private transient DocumentBuilder mDocumentBuilder;
-
-    /**
-    *
-    */
-    private transient CachedXPathAPI mXPathAPI;
 
     /**
      * <B>sSeparator</B> contains the separator symbol used in child path.
@@ -290,13 +292,32 @@ public class XmlDocument implements IXmlDocument
      */
     private IXmlElement create(org.w3c.dom.Node node) throws XmlDocumentCheckedException
     {
-        Document doc = new DocumentImpl();
-        Node rootNode = doc;
+    	final String debugString = getClass().getName() + ".create(Node)";
+    	try
+		{
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			factory.setNamespaceAware(true);
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.newDocument();
+			Node rootNode = doc;
 
-        Node child = cloneChildren(doc, node);
-        rootNode.appendChild(child);
+			Node child = cloneChildren(doc, node);
+			rootNode.appendChild(child);
 
-        return new XmlDocument(rootNode, doc).getRootElement();
+			return new XmlDocument(rootNode, doc).getRootElement();
+		}
+		catch (XmlDocumentCheckedException e)
+		{
+			throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
+		}
+		catch (DOMException e)
+		{
+			throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
+		}
+		catch (ParserConfigurationException e)
+		{
+			throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
+		}
     }
 
     /**
@@ -712,7 +733,7 @@ public class XmlDocument implements IXmlDocument
     {
         List<IXmlElement> children = new ArrayList<IXmlElement>();
 
-        NodeList nodes = selectNodesViaXPath(xpathQuery, mRootNode);
+        NodeList nodes = selectNodes(xpathQuery);
 
         if ((nodes == null) || (nodes.getLength() == 0))
         {
@@ -1059,30 +1080,39 @@ public class XmlDocument implements IXmlDocument
             throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
         }
     }
-
-    /**
-     * @param childName The child name.
-     * @param root The root node.
-     * @return The corresponding nodes.
-     * @throws XmlDocumentCheckedException If the XML is invalid.
-     */
-    protected NodeList selectNodesViaXPath(String childName, Node root) throws XmlDocumentCheckedException
+    
+    protected NodeList selectNodes(String xpathQuery) throws XmlDocumentCheckedException 
     {
-        if (root == null)
-        {
-            throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.NULL_ROOT_ELEMENT, "No ROOT element found");
-        }
-
-        mXPathAPI = new CachedXPathAPI();
-
+    	final String debugString = getClass().getName() + ".selectNodes(String)";
+    	
         try
-        {
-            return mXPathAPI.selectNodeList(root, childName);
-        }
-        catch (Exception e)
-        {
-            throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, "Error executing xPath query", e);
-        }
+		{
+			XPathFactory xpathFactory = XPathFactory.newInstance();
+			XPath xpath = xpathFactory.newXPath();
+			XPathExpression expr = xpath.compile(xpathQuery);
+			return (NodeList) expr.evaluate(mDocument, XPathConstants.NODESET);
+		}
+		catch (XPathExpressionException e)
+		{
+			throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
+		}
+    }
+    
+    protected Node selectSingleNode(String xpathQuery) throws XmlDocumentCheckedException 
+    {
+    	final String debugString = getClass().getName() + ".selectSingleNode(String)";
+    	
+        try
+		{
+			XPathFactory xpathFactory = XPathFactory.newInstance();
+			XPath xpath = xpathFactory.newXPath();
+			XPathExpression expr = xpath.compile(xpathQuery);
+			return (Node) expr.evaluate(mDocument, XPathConstants.NODE);
+		}
+		catch (XPathExpressionException e)
+		{
+			throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
+		}
     }
 
     /**
@@ -1395,7 +1425,7 @@ public class XmlDocument implements IXmlDocument
         {
             List<IXmlElement> removedChildren = new ArrayList<IXmlElement>();
 
-            NodeList nodes = selectNodesViaXPath(xpathQuery, mRootNode);
+            NodeList nodes = selectNodes(xpathQuery);
 
             if ((nodes == null) || (nodes.getLength() == 0))
             {
@@ -1739,28 +1769,15 @@ public class XmlDocument implements IXmlDocument
         final String debugString = getClass().getName() + ".writeToStream(OutputStream)";
         try
         {
-            OutputFormat format = new OutputFormat(mDocument);
-            format.setIndenting(false);
-            // format.setPreserveEmptyAttributes(true);
-            format.setPreserveSpace(true);
-            // Serialize DOM
+        	TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        	Transformer transformer = transformerFactory.newTransformer();
+        	transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        	transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+        	transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 
-            XMLSerializer serial = new XMLSerializer(output, format);
-            serial.asDOMSerializer();
-            // As a DOM Serializer
-
-            if (mRootNode == mDocument)
-            {
-                serial.serialize(mDocument);
-            }
-            else
-            {
-                serial.serialize((Element) mRootNode);
-            }
-        }
-        catch (IOException e)
-        {
-            throw new XmlDocumentCheckedException(XmlDocumentCheckedException.Codes.GENERAL_ERROR, e, debugString, e);
+        	DOMSource source = new DOMSource(mDocument);
+        	StreamResult result = new StreamResult(output);
+        	transformer.transform(source, result);
         }
         catch (Exception e)
         {
@@ -1798,12 +1815,13 @@ public class XmlDocument implements IXmlDocument
         StringWriter stringwriter = new StringWriter();
         try
         {
-            OutputFormat outputformat = new OutputFormat();
-            outputformat.setIndenting(true);
-            outputformat.setLineWidth(0);
-            XMLSerializer xmlserializer = new XMLSerializer(stringwriter, outputformat);
-            xmlserializer.serialize(mDocument);
-            stringwriter.close();
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+
+            transformer.transform(new DOMSource(mDocument), new StreamResult(stringwriter));
         }
         catch (Exception ex)
         {
